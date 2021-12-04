@@ -1,0 +1,43 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* background colors */
+.project-bg-white1 {
+  background-color: #ffffff;
+}
+
+.project-bg-white2 {
+  background-color: #e5e5e5;
+}
+
+.project-bg-blue1 {
+  background-color: #3883dc;
+}
+
+/* foreground colors */
+.project-fg-white1 {
+  color: #ffffff;
+}
+
+.project-fg-black1 {
+  color: #364862;
+}
+
+.project-fg-blue1 {
+  color: #4873c4;
+}
+
+/* other settings */
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+.page-container {
+  height: 100vh;
+}
+
+.main-container {
+  /* ヘッダーとコントロールパネルの高さ分引く */
+  height: calc(100vh - 65px - 50px);
+  overflow: auto;
+}

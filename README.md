@@ -1,4 +1,4 @@
-# Gift Treee
+# Gift Tree
 
 ![build](https://github.com/ritscc/gakusai-hack-2021-b/workflows/build/badge.svg)
 ![test](https://github.com/ritscc/gakusai-hack-2021-b/workflows/test/badge.svg)

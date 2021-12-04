@@ -1,0 +1,21 @@
+<div fxLayout="row" fxLayoutAlign="end center">
+  <button mat-button [matMenuTriggerFor]="menu" fxLayout="row">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+
+  <mat-menu class="menu-panel" #menu="matMenu">
+    <button mat-menu-item>
+      <div class="project-fg-black1">
+        <mat-icon>manage_accounts</mat-icon>
+        <span>個人設定</span>
+      </div>
+    </button>
+
+    <button mat-menu-item>
+      <div class="project-fg-black1">
+        <mat-icon>logout</mat-icon>
+        <span>ログアウト</span>
+      </div>
+    </button>
+  </mat-menu>
+</div>

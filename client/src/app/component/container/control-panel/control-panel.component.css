@@ -1,0 +1,53 @@
+.control-panel-container {
+  height: 50px;
+}
+
+.buttons-container {
+  width: 100vw;
+  padding-top: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  z-index: 4;
+}
+
+.control-panel-button {
+  width: 50px;
+  font-size: 0.6rem;
+}
+
+.receive-button-container {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  margin: auto;
+
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.receive-button {
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  margin: auto;
+  width: 70px;
+  height: 70px;
+  z-index: 5;
+}
+
+.receive-button-logo {
+  width: 45px;
+  margin-left: 2px;
+}
+
+.to-hidden-shadow-container {
+  position: absolute;
+  height: 50px;
+  z-index: 3;
+  width: 100vw;
+}
