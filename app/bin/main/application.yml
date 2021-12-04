@@ -26,6 +26,7 @@ server:
 project:
   name: gifttree
   version: 1.0
+  package: dev.abelab.gifttree
   mybatis:
     config:
       file: generatorConfig.xml
@@ -46,6 +47,11 @@ mybatis:
   mapperLocations:
     - classpath:/db/mapper/base/*Mapper.xml
     - classpath:/db/mapper/*Mapper.xml
+
+jwt:
+  secret: 8WRnDG5cUpi0qD5Kpd3Bx/n+1X6DG7mhQwsCQAVjJLo=
+  issuer: gifttree.abelab.dev
+  expired_in: 604800 # [秒]
 
 logging:
   level:
