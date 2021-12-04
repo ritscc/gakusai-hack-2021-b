@@ -1,0 +1,15 @@
+.control-panel-container {
+  height: 50px;
+}
+
+.buttons-container {
+  width: 100vw;
+  padding-top: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.control-panel-button {
+  width: 50px;
+  font-size: 0.6rem;
+}

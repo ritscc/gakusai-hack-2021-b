@@ -46,7 +46,6 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     // pipes
     // UsernamePipe,
     // DatetimePipe,
-
     // components
   ],
   imports: [
