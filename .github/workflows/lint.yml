@@ -1,4 +1,4 @@
-name: build
+name: lint
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  build:
+  code-check:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,16 +31,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - uses: actions/setup-java@v2
-        with:
-          distribution: "adopt"
-          java-version: "11"
-
-      - name: Run backend build
-        run: ./gradlew bootJar
-
-      - name: Run frontend build
+      - name: Run lint
         run: |
           cd client
           yarn
-          yarn run build --configuration production
+          yarn run check
