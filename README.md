@@ -3,6 +3,7 @@
 ![build](https://github.com/ritscc/gakusai-hack-2021-b/workflows/build/badge.svg)
 ![test](https://github.com/ritscc/gakusai-hack-2021-b/workflows/test/badge.svg)
 ![lint](https://github.com/ritscc/gakusai-hack-2021-b/workflows/lint/badge.svg)
+![lint](https://github.com/ritscc/gakusai-hack-2021-b/workflows/deploy/badge.svg)
 ![Version 1.0](https://img.shields.io/badge/version-1.0-yellow.svg)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
