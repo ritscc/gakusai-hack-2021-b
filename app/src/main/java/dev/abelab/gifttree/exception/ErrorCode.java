@@ -19,9 +19,12 @@ public enum ErrorCode {
      */
     NOT_FOUND_API(1100, "exception.not_found.api"),
 
+    NOT_FOUND_USER(1101, "exception.not_found.user"),
+
     /**
      * Conflict: 1200~1299
      */
+    CONFLICT_EMAIL(1200, "exception.conflict.email"),
 
     /**
      * Forbidden: 1300~1399
