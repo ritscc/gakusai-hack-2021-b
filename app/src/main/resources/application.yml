@@ -48,6 +48,11 @@ mybatis:
     - classpath:/db/mapper/base/*Mapper.xml
     - classpath:/db/mapper/*Mapper.xml
 
+jwt:
+  secret: 8WRnDG5cUpi0qD5Kpd3Bx/n+1X6DG7mhQwsCQAVjJLo=
+  issuer: gifttree.abelab.dev
+  expired_in: 604800 # [秒]
+
 logging:
   level:
     root: INFO
