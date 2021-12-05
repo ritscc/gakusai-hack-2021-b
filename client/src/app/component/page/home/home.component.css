@@ -1,0 +1,32 @@
+.home-header {
+  width: 100vw;
+  height: 55vh;
+}
+
+.header-title {
+  font-size: 1.5rem;
+}
+
+.header-sub-title {
+  position: absolute;
+  top: 20vh;
+  font-size: 1.8rem;
+  text-align: right;
+}
+
+.application-detail-text {
+  font-size: 0.9rem;
+  margin: 30px;
+}
+
+.application-logo {
+  margin-top: 10px;
+  height: 65%;
+  opacity: 0.2;
+}
+
+.start-button {
+  width: 180px;
+  color: #ffffff;
+  background-color: #9165ea;
+}
