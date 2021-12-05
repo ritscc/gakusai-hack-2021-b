@@ -3,8 +3,9 @@ exception:
     unexpected_error: "予期せぬエラーが発生しました。"
   not_found:
     api: "APIが見つかりません。"
+    user: "ユーザが見つかりません。"
   conflict:
-    email: "そのメールアドレスはすでに登録すみです。"
+    email: "そのメールアドレスはすでに登録済みです。"
   forbidden:
     user_has_no_permission: "その動作は許可されていません。"
   bad_request:

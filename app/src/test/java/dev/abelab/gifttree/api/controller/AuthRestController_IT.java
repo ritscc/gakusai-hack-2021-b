@@ -47,13 +47,13 @@ public class AuthRestController_IT extends AbstractRestController_IT {
 			/*
 			 * test
 			 */
-			final var request = postRequest("/api/login", requestBody);
+			final var request = postRequest(LOGIN_PATH, requestBody);
 			final var response = execute(request, HttpStatus.OK, AccessTokenResponse.class);
 
 			/*
 			 * verify
 			 */
-			assertThat(response.getAccessToken().length()).isEqualTo(255);
+			assertThat(response.getAccessToken()).isNotNull();
 			assertThat(response.getTokenType()).isEqualTo("Bearer");
 		}
 
@@ -73,7 +73,7 @@ public class AuthRestController_IT extends AbstractRestController_IT {
 			/*
 			 * test & verify
 			 */
-			final var request = postRequest("/api/login", requestBody);
+			final var request = postRequest(LOGIN_PATH, requestBody);
 			execute(request, new NotFoundException(ErrorCode.NOT_FOUND_USER));
 		}
 
@@ -93,7 +93,7 @@ public class AuthRestController_IT extends AbstractRestController_IT {
 			/*
 			 * test & verify
 			 */
-			final var request = postRequest("/api/login", requestBody);
+			final var request = postRequest(LOGIN_PATH, requestBody);
 			execute(request, new UnauthorizedException(ErrorCode.WRONG_PASSWORD));
 		}
 
