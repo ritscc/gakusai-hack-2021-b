@@ -3,12 +3,18 @@ exception:
     unexpected_error: "予期せぬエラーが発生しました。"
   not_found:
     api: "APIが見つかりません。"
+    user: "ユーザが見つかりません。"
   conflict:
-    email: "そのメールアドレスはすでに登録すみです。"
+    email: "そのメールアドレスはすでに登録済みです。"
   forbidden:
     user_has_no_permission: "その動作は許可されていません。"
   bad_request:
     validation_error: "不正なリクエストです。問題が解決しない場合は、管理者までご連絡ください。"
     invalid_request_parameter: "不正なリクエストです。問題が解決しない場合は、管理者までご連絡ください。"
+    invalid_password_size: "パスワードの長さは8~32文字にしてください。"
+    too_simple_password: "パスワードには大文字・小文字、数字を含める必要があります。"
   unauthorized:
     user_not_logged_in: "ユーザはログインしていません。問題が解決しない場合は、管理者までご連絡ください。"
+    wrong_password: "パスワードが間違っています"
+    invalid_access_token: "無効なアクセストークンです。再度ログインしてください。"
+    expired_access_token: "期限切れのアクセストークンです。再度ログインしてください。"

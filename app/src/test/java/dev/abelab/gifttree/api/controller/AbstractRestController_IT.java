@@ -25,10 +25,14 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
-import dev.abelab.gifttree.api.response.ErrorResponse;
 import dev.abelab.gifttree.annotation.IntegrationTest;
-import dev.abelab.gifttree.exception.BaseException;
+import dev.abelab.gifttree.db.entity.User;
+import dev.abelab.gifttree.db.mapper.UserMapper;
+import dev.abelab.gifttree.api.response.ErrorResponse;
+import dev.abelab.gifttree.util.AuthUtil;
 import dev.abelab.gifttree.util.ConvertUtil;
+import dev.abelab.gifttree.helper.sample.UserSample;
+import dev.abelab.gifttree.exception.BaseException;
 
 /**
  * Abstract Rest Controller Integration Test
@@ -38,9 +42,12 @@ import dev.abelab.gifttree.util.ConvertUtil;
 @IntegrationTest
 public abstract class AbstractRestController_IT {
 
-	protected static final int SAMPLE_INT = 1;
+	protected static final Integer SAMPLE_INT = 1;
 	protected static final String SAMPLE_STR = "SAMPLE STRING";
 	protected static final Date SAMPLE_DATE = new Date();
+	protected static final String LOGIN_USER_EMAIL = "test@example.com";
+	protected static final String LOGIN_USER_PASSWORD = "f4BabxEr7xA6";
+	protected static final Integer LOGIN_USER_ADMISSION_AT = SAMPLE_INT;
 
 	MockMvc mockMvc;
 
@@ -49,6 +56,12 @@ public abstract class AbstractRestController_IT {
 
 	@Autowired
 	private PlatformTransactionManager transactionManager;
+
+	@Autowired
+	private UserMapper userMapper;
+
+	@Autowired
+	private AuthUtil authUtil;
 
 	/**
 	 * GET request
@@ -195,6 +208,32 @@ public abstract class AbstractRestController_IT {
 		}
 
 		return response;
+	}
+
+	/**
+	 * ログインユーザを作成
+	 *
+	 * @return loginUser
+	 */
+	public User createLoginUser() {
+		final var loginUser = UserSample.builder() //
+			.email(LOGIN_USER_EMAIL) //
+			.password(this.authUtil.encodePassword(LOGIN_USER_PASSWORD)) //
+			.build();
+		this.userMapper.insert(loginUser);
+
+		return loginUser;
+	}
+
+	/**
+	 * ログインユーザのクレデンシャルを取得
+	 *
+	 * @param user ログインユーザ
+	 *
+	 * @return credentials
+	 */
+	public String getLoginUserCredentials(User user) throws Exception {
+		return "Bearer " + this.authUtil.generateCredentials(user);
 	}
 
 	@BeforeEach

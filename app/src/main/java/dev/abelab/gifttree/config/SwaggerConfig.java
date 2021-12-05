@@ -35,6 +35,7 @@ public class SwaggerConfig {
             .build() //
             .apiInfo(apiInfo()) //
             .tags( //
+                new Tag("Auth", "認証"), //
                 new Tag("Health Check", "ヘルスチェック"), //
                 new Tag("User", "ユーザ"), //
                 new Tag("Gift", "ギフト"), //
