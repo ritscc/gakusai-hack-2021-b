@@ -14,6 +14,8 @@ public enum ErrorCode {
      */
     UNEXPECTED_ERROR(1000, "exception.internal_server_error.unexpected_error"),
 
+    FAILED_TO_UPLOAD_FILE_TO_GCS(1001, "exception.internal_server_error.failed_to_upload_file_to_gcs"),
+
     /**
      * Not Found: 1100~1199
      */

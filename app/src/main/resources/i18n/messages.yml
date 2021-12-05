@@ -1,6 +1,7 @@
 exception:
   internal_server_error:
     unexpected_error: "予期せぬエラーが発生しました。"
+    failed_to_upload_file_to_gcs: "GCSへのファイルのアップロードに失敗しました。"
   not_found:
     api: "APIが見つかりません。"
     user: "ユーザが見つかりません。"
