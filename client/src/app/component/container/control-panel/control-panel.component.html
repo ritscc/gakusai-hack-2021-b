@@ -14,7 +14,12 @@
       <span>ランキング</span>
     </div>
 
-    <div class="control-panel-button" fxLayout="column" fxLayoutAlign="start center"></div>
+    <button
+      mat-button
+      class="control-panel-button"
+      fxLayout="column"
+      fxLayoutAlign="start center"
+    ></button>
 
     <div class="control-panel-button" fxLayout="column" fxLayoutAlign="start center">
       <mat-icon>notifications</mat-icon>
@@ -33,7 +38,9 @@
     fxLayoutAlign="center center"
   ></div>
   <div class="receive-button" fxLayout="row" fxLayoutAlign="center center">
-    <img class="receive-button-logo" src="assets/palm-tree-logo.svg" />
+    <button mat-fab class="receive-button-click-area mat-elevation-z0">
+      <img class="receive-button-logo" src="assets/palm-tree-logo.svg" />
+    </button>
   </div>
 
   <div

@@ -37,7 +37,12 @@
   margin: auto;
   width: 70px;
   height: 70px;
-  z-index: 5;
+}
+
+.receive-button-click-area {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
 }
 
 .receive-button-logo {
