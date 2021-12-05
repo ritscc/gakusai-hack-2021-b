@@ -48,6 +48,13 @@ mybatis:
     - classpath:/db/mapper/base/*Mapper.xml
     - classpath:/db/mapper/*Mapper.xml
 
+gcp:
+  project-id:
+  credentials_path:
+  cloud-storage:
+    enabled: false
+    bucket-name:
+
 jwt:
   secret: 8WRnDG5cUpi0qD5Kpd3Bx/n+1X6DG7mhQwsCQAVjJLo=
   issuer: gifttree.abelab.dev
