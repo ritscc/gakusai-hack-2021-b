@@ -41,7 +41,6 @@ public class UserService {
      */
     @Transactional
     public UserResponse getLoginUser(final User loginUser) {
-        System.out.println(loginUser);
         return this.modelMapper.map(loginUser, UserResponse.class);
     }
 

@@ -36,24 +36,24 @@ public class UserRestController {
      * @return ユーザ一覧
      */
     @ApiOperation( //
-            value = "ユーザ一覧の取得", //
-            notes = "ユーザ一覧を取得する。" //
+        value = "ユーザ一覧の取得", //
+        notes = "ユーザ一覧を取得する。" //
     )
     @ApiResponses( //
-            value = { //
-                    @ApiResponse(code = 200, message = "取得成功", response = UsersResponse.class), //
-                    @ApiResponse(code = 401, message = "ユーザがログインしていない"), //
-            } //
+        value = { //
+                @ApiResponse(code = 200, message = "取得成功", response = UsersResponse.class), //
+                @ApiResponse(code = 401, message = "ユーザがログインしていない"), //
+        } //
     )
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public UsersResponse getUsers( //
-                                   @ModelAttribute("LoginUser") final User loginUser //
+        @ModelAttribute("LoginUser") final User loginUser //
     ) {
         final var users = this.userService.getUsers(loginUser);
         final var userResponses = users.stream() //
-                .map(user -> this.modelMapper.map(user, UserResponse.class)) //
-                .collect(Collectors.toList());
+            .map(user -> this.modelMapper.map(user, UserResponse.class)) //
+            .collect(Collectors.toList());
 
         return new UsersResponse(userResponses);
     }
