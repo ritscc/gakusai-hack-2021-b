@@ -4,10 +4,16 @@
     fxLayout="row"
     fxLayoutAlign="space-between center"
   >
-    <div class="header-title" fxLayout="row" fxLayoutAlign="start center" fxFlexOffset="10px">
+    <a
+      class="header-title project-fg-white1"
+      [routerLink]="'/'"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      fxFlexOffset="10px"
+    >
       <img src="assets/rcc-logo.svg" class="rcc-logo" />
       <span fxFlexOffset="5px">Gift Tree</span>
-    </div>
+    </a>
 
     <app-header-user-menu></app-header-user-menu>
   </div>
