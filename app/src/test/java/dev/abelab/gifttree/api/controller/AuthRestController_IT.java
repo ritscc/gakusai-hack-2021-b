@@ -70,7 +70,7 @@ public class AuthRestController_IT extends AbstractRestController_IT {
 			/*
 			 * given
 			 */
-			createLoginUser();
+			createLoginUser(true);
 
 			// login request body
 			final var requestBody = LoginRequest.builder() //
@@ -116,7 +116,7 @@ public class AuthRestController_IT extends AbstractRestController_IT {
 			/*
 			 * given
 			 */
-			createLoginUser();
+			createLoginUser(true);
 
 			// login request body
 			final var requestBody = LoginRequest.builder() //

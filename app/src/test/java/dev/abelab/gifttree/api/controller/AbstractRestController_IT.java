@@ -213,14 +213,18 @@ public abstract class AbstractRestController_IT {
 	/**
 	 * ログインユーザを作成
 	 *
+	 * @param insert insertフラグ
+	 *
 	 * @return loginUser
 	 */
-	public User createLoginUser() {
+	public User createLoginUser(final boolean insert) {
 		final var loginUser = UserSample.builder() //
 			.email(LOGIN_USER_EMAIL) //
 			.password(this.authUtil.encodePassword(LOGIN_USER_PASSWORD)) //
 			.build();
-		this.userMapper.insert(loginUser);
+		if (insert) {
+			this.userMapper.insert(loginUser);
+		}
 
 		return loginUser;
 	}
