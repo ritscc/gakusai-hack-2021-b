@@ -1,5 +1,7 @@
 package dev.abelab.gifttree.api.controller;
 
+import dev.abelab.gifttree.api.response.UsersResponse;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,8 @@ import dev.abelab.gifttree.api.response.UserResponse;
 import dev.abelab.gifttree.db.entity.User;
 import dev.abelab.gifttree.service.UserService;
 
+import java.util.stream.Collectors;
+
 @Api(tags = "User")
 @RestController
 @RequestMapping(path = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -20,7 +24,39 @@ import dev.abelab.gifttree.service.UserService;
 @Authenticated
 public class UserRestController {
 
+    private final ModelMapper modelMapper;
+
     private final UserService userService;
+
+    /**
+     * ユーザ一覧取得API
+     *
+     * @param loginUser ログインユーザ
+     *
+     * @return ユーザ一覧
+     */
+    @ApiOperation( //
+            value = "ユーザ一覧の取得", //
+            notes = "ユーザ一覧を取得する。" //
+    )
+    @ApiResponses( //
+            value = { //
+                    @ApiResponse(code = 200, message = "取得成功", response = UsersResponse.class), //
+                    @ApiResponse(code = 401, message = "ユーザがログインしていない"), //
+            } //
+    )
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public UsersResponse getUsers( //
+                                   @ModelAttribute("LoginUser") final User loginUser //
+    ) {
+        final var users = this.userService.getUsers(loginUser);
+        final var userResponses = users.stream() //
+                .map(user -> this.modelMapper.map(user, UserResponse.class)) //
+                .collect(Collectors.toList());
+
+        return new UsersResponse(userResponses);
+    }
 
     /**
      * プロフィール取得API
