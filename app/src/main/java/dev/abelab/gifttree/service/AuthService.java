@@ -16,6 +16,8 @@ import dev.abelab.gifttree.model.FileModel;
 import dev.abelab.gifttree.repository.UserRepository;
 import dev.abelab.gifttree.util.AuthUtil;
 import dev.abelab.gifttree.client.CloudStorageClient;
+import dev.abelab.gifttree.exception.ErrorCode;
+import dev.abelab.gifttree.exception.UnauthorizedException;
 
 @RequiredArgsConstructor
 @Service
@@ -84,6 +86,25 @@ public class AuthService {
             .accessToken(credentials) //
             .tokenType("Bearer") //
             .build();
+    }
+
+    /**
+     * ログインユーザを取得
+     *
+     * @param credentials クレデンシャル
+     *
+     * @return ログインユーザ
+     */
+    @Transactional
+    public User getLoginUser(final String credentials) {
+        // クレデンシャルの構文チェック
+        if (!credentials.startsWith("Bearer ")) {
+            throw new UnauthorizedException(ErrorCode.INVALID_ACCESS_TOKEN);
+        }
+        final var userId = this.authUtil.verifyCredentials(credentials.substring(7));
+
+        // ログインユーザを取得
+        return this.userRepository.selectById(userId);
     }
 
 }
