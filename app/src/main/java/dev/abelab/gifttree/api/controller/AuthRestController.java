@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import io.swagger.annotations.*;
 import lombok.*;
 import dev.abelab.gifttree.api.request.LoginRequest;
+import dev.abelab.gifttree.api.request.SignUpRequest;
 import dev.abelab.gifttree.api.response.AccessTokenResponse;
 import dev.abelab.gifttree.service.AuthService;
 
@@ -40,6 +41,32 @@ public class AuthRestController {
         @Validated @ApiParam(name = "body", required = true, value = "ログイン情報") @RequestBody final LoginRequest requestBody //
     ) {
         return this.authService.login(requestBody);
+    }
+
+    /**
+     * サインアップ処理API
+     *
+     * @param requestBody サインアップリクエスト
+     *
+     * @return アクセストークンレスポンス
+     */
+    @ApiOperation( //
+        value = "サインアップ", //
+        notes = "ユーザのサインアップ処理を行う。" //
+    )
+    @ApiResponses( //
+        value = { //
+                @ApiResponse(code = 201, message = "作成成功", response = AccessTokenResponse.class), //
+                @ApiResponse(code = 400, message = "無効なパスワード"), //
+                @ApiResponse(code = 409, message = "メールアドレスが既に登録済み"), //
+        } //
+    )
+    @PostMapping(value = "/signup")
+    @ResponseStatus(HttpStatus.CREATED)
+    public AccessTokenResponse signUp( //
+        @Validated @ApiParam(name = "body", required = true, value = "サインアップ情報") @RequestBody final SignUpRequest requestBody //
+    ) {
+        return this.authService.signUp(requestBody);
     }
 
 }
