@@ -16,6 +16,7 @@ import { RankingComponent } from './component/page/ranking/ranking.component';
 import { RankingTableComponent } from './component/container/ranking-table/ranking-table.component';
 import { ProfileComponent } from './component/page/profile/profile.component';
 import { SignupComponent } from './component/page/signup/signup.component';
+import { LoginComponent } from './component/page/login/login.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SignupComponent } from './component/page/signup/signup.component';
     RankingTableComponent,
     ProfileComponent,
     SignupComponent,
+    LoginComponent,
   ],
   imports: [SharedModule, BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
