@@ -4,11 +4,13 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.TestInstance.Lifecycle.*;
 
 import dev.abelab.gifttree.api.request.LoginUserUpdateRequest;
+import dev.abelab.gifttree.client.CloudStorageClient;
 import dev.abelab.gifttree.db.entity.User;
 import dev.abelab.gifttree.db.entity.UserExample;
 import dev.abelab.gifttree.exception.ConflictException;
 import dev.abelab.gifttree.helper.sample.UserSample;
 import dev.abelab.gifttree.helper.util.RandomUtil;
+import mockit.Mocked;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -38,6 +40,9 @@ public class UserRestController_IT extends AbstractRestController_IT {
 
 	@Autowired
 	UserMapper userMapper;
+
+	@Mocked
+	CloudStorageClient cloudStorageClient;
 
 	/**
 	 * ログインユーザ詳細取得APIの統合テスト
