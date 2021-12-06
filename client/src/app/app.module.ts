@@ -14,6 +14,7 @@ import { ControlPanelComponent } from './component/container/control-panel/contr
 import { HomeComponent } from './component/page/home/home.component';
 import { RankingComponent } from './component/page/ranking/ranking.component';
 import { RankingTableComponent } from './component/container/ranking-table/ranking-table.component';
+import { ProfileComponent } from './component/page/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { RankingTableComponent } from './component/container/ranking-table/ranki
     HomeComponent,
     RankingComponent,
     RankingTableComponent,
+    ProfileComponent,
   ],
   imports: [SharedModule, BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
