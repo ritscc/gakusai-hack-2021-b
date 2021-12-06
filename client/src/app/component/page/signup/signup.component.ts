@@ -33,4 +33,9 @@ export class SignupComponent implements OnInit {
       }
     );
   }
+
+  selectIconFile() {
+		// TODO
+    console.log('アイコン選択モーダルを表示');
+  }
 }

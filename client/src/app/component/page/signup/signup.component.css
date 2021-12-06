@@ -1,3 +1,39 @@
 .signup-button {
   width: 180px;
 }
+
+.user-icon-card {
+  width: 80%;
+}
+
+.user-icon-container {
+  width: 150px;
+  height: 150px;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+}
+
+.user-icon {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+}
+
+.user-icon-no-image {
+  width: 150px;
+  height: 150px;
+  font-size: 150px;
+  color: #bbbbbb;
+}
+
+.select-title {
+  width: 80%;
+}
+
+input {
+  width: calc(80% - 20px);
+  padding-left: 20px;
+  height: 30px;
+  border: 0;
+  border-radius: 4px;
+}
