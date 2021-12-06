@@ -1,11 +1,11 @@
 package dev.abelab.gifttree.service;
 
 import dev.abelab.gifttree.api.request.LoginUserUpdateRequest;
+import dev.abelab.gifttree.client.CloudStorageClient;
 import dev.abelab.gifttree.exception.ConflictException;
 import dev.abelab.gifttree.exception.ErrorCode;
 import dev.abelab.gifttree.model.FileModel;
 import dev.abelab.gifttree.repository.UserRepository;
-import dev.abelab.gifttree.util.CloudStorageUtil;
 import org.apache.commons.net.util.Base64;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +25,7 @@ public class UserService {
 
     private final ModelMapper modelMapper;
 
-    private final CloudStorageUtil cloudStorageUtil;
+    private final CloudStorageClient cloudStorageClient;
 
     /**
      * ユーザリストを取得
@@ -70,7 +70,7 @@ public class UserService {
         if (requestBody.getIcon() != null) {
             final var file = FileModel.builder().content(Base64.decodeBase64(requestBody.getIcon())).build();
             file.setName("icons/" + file.getName());
-            iconUrl = this.cloudStorageUtil.uploadFile(file);
+            iconUrl = this.cloudStorageClient.uploadFile(file);
         }
 
         // ログインユーザを更新
