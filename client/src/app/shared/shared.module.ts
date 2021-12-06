@@ -31,22 +31,28 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 // pipes
-// import { UsernamePipe } from './pipe/username.pipe';
-// import { DatetimePipe } from './pipe/datetime.pipe';
+import { UsernamePipe } from './pipe/username.pipe';
+import { DatetimePipe } from './pipe/datetime.pipe';
 
 // interceptors
-// import { LoadingInterceptor } from './interceptor/loading.interceptor';
-// import { HandleErrorInterceptor } from './interceptor/handle-error.interceptor';
-// import { AuthorizationInterceptor } from './interceptor/authorization.interceptor';
+import { LoadingInterceptor } from './interceptor/loading.interceptor';
+import { HandleErrorInterceptor } from './interceptor/handle-error.interceptor';
+import { AuthorizationInterceptor } from './interceptor/authorization.interceptor';
 
 // components
+import { ProgressSpinnerComponent } from './component/progress-spinner/progress-spinner.component';
+import { SnackBarComponent } from './component/snack-bar/snack-bar.component';
+import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
     // pipes
-    // UsernamePipe,
-    // DatetimePipe,
+    UsernamePipe,
+    DatetimePipe,
     // components
+    ProgressSpinnerComponent,
+    SnackBarComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -120,15 +126,15 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModalModule,
 
     // pipes
-    // UsernamePipe,
-    // DatetimePipe,
+    UsernamePipe,
+    DatetimePipe,
   ],
 
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'ja-JP' },
-    // { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: HandleErrorInterceptor, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HandleErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
   ],
 })
 export class SharedModule {}

@@ -1,0 +1,21 @@
+<div *ngIf="loginUser" class="profile-container" fxLayout="column" fxLayoutAlign="start center">
+  <div
+    class="user-icon-container mat-elevation-z3"
+    fxLayoutAlign="center center"
+    fxFlexOffset="30px"
+  >
+    <mat-icon *ngIf="!loginUser.iconUrl" class="user-icon-no-image"
+      >supervised_user_circle</mat-icon
+    >
+    <img *ngIf="loginUser.iconUrl" class="user-icon" [src]="loginUser.iconUrl" />
+  </div>
+
+  <span class="user-name" fxFlexOffset="30px">{{ loginUser.name }}</span>
+
+  <div fxLayout="column" fxLayoutAlign="start start" fxFlexOffset="20px" style="width: 80%">
+    <h3>最近のログ</h3>
+    <span class="log-text">2021/12/6 クマさんからギフトを受け取りました</span>
+    <span class="log-text">2021/12/6 FKDにギフトを送りました</span>
+    <span class="log-text">2021/12/6 アカウント作成</span>
+  </div>
+</div>

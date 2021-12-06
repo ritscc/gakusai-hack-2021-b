@@ -1,12 +1,25 @@
-<div
-  class="header-content project-bg-blue1 mat-elevation-z4"
-  fxLayout="row"
-  fxLayoutAlign="space-between center"
->
-  <div class="header-title" fxLayout="row" fxLayoutAlign="start center" fxFlexOffset="10px">
-    <img src="assets/rcc-logo.svg" class="rcc-logo" />
-    <span fxFlexOffset="5px">Gift Tree</span>
+<div class="page-container">
+  <div
+    class="header-content project-bg-blue1 mat-elevation-z4"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+  >
+    <a
+      class="header-title project-fg-white1"
+      [routerLink]="'/'"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      fxFlexOffset="10px"
+    >
+      <span fxFlexOffset="5px">Gift Tree</span>
+    </a>
+
+    <app-header-user-menu></app-header-user-menu>
   </div>
 
-  <app-header-user-menu></app-header-user-menu>
+  <div class="main-container project-fg-black1">
+    <router-outlet></router-outlet>
+    <div class="dummy-area"></div>
+  </div>
+  <app-control-panel class="project-fg-black1"></app-control-panel>
 </div>
