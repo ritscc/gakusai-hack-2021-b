@@ -34,10 +34,12 @@ body {
 
 .page-container {
   height: 100vh;
+  min-height: -webkit-fill-available;
 }
 
 .main-container {
   /* ヘッダーとコントロールパネルの高さ分引く */
   height: calc(100vh - 65px - 50px);
+  width: 100vw;
   overflow: auto;
 }

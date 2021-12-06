@@ -1,0 +1,39 @@
+.ranking-card {
+  margin-top: 20px;
+  width: 80vw;
+}
+
+.ranking-card-content {
+  width: 80%;
+}
+
+.ranking-table-row {
+  width: 100%;
+}
+
+.trophy-icon {
+  width: 60px;
+  font-size: 2.3rem;
+  margin-right: 20px;
+}
+
+.user-icon {
+  width: 30px;
+  border-radius: 50%;
+}
+
+.user-name {
+  margin-left: 10px;
+  width: 100px;
+}
+
+.score {
+  font-size: 0.7rem;
+  text-align: right;
+  width: 20px;
+}
+
+.login-user-rank {
+  width: 60px;
+  margin-right: 20px;
+}

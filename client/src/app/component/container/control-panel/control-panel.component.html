@@ -1,15 +1,25 @@
 <div
-  class="control-panel-container project-bg-white1 mat-elevation-z4"
+  class="control-panel-container project-bg-white1 mat-elevation-z0"
   fxLayout="column"
   fxLayoutAlign="center"
 >
   <div class="buttons-container" fxLayout="row" fxLayoutAlign="space-between">
-    <div class="control-panel-button" fxLayout="column" fxLayoutAlign="start center">
+    <div
+      class="control-panel-button"
+      fxLayout="column"
+      fxLayoutAlign="start center"
+      [routerLink]="'/gifts'"
+    >
       <mat-icon>redeem</mat-icon>
       <span>ギフト</span>
     </div>
 
-    <div class="control-panel-button" fxLayout="column" fxLayoutAlign="start center">
+    <div
+      class="control-panel-button"
+      fxLayout="column"
+      fxLayoutAlign="start center"
+      [routerLink]="'/ranking'"
+    >
       <mat-icon>emoji_events</mat-icon>
       <span>ランキング</span>
     </div>
@@ -21,12 +31,22 @@
       fxLayoutAlign="start center"
     ></button>
 
-    <div class="control-panel-button" fxLayout="column" fxLayoutAlign="start center">
+    <div
+      class="control-panel-button"
+      fxLayout="column"
+      fxLayoutAlign="start center"
+      [routerLink]="'/notifications'"
+    >
       <mat-icon>notifications</mat-icon>
       <span>通知</span>
     </div>
 
-    <div class="control-panel-button" fxLayout="column" fxLayoutAlign="start center">
+    <div
+      class="control-panel-button"
+      fxLayout="column"
+      fxLayoutAlign="start center"
+      [routerLink]="'/profile'"
+    >
       <mat-icon>settings</mat-icon>
       <span>設定</span>
     </div>
