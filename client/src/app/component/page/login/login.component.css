@@ -1,0 +1,20 @@
+.login-button {
+  width: 180px;
+  margin-bottom: 30px;
+}
+
+.select-title {
+  width: 80%;
+}
+
+input {
+  width: calc(80% - 20px);
+  padding-left: 20px;
+  height: 30px;
+  border: 0;
+  border-radius: 4px;
+}
+
+.signup-link-text {
+  font-size: 0.8rem;
+}

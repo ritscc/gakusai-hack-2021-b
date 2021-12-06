@@ -25,10 +25,14 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(): void {
+    if (!this.requestBody.email || !this.requestBody.password || !this.requestBody.name) {
+      return;
+    }
+
     this.authService.signup(this.requestBody).subscribe(
       (accessToken) => {
         this.authService.setCredentials(accessToken);
-        this.alertService.openSnackBar('ログインに成功しました', 'SUCCESS');
+        this.alertService.openSnackBar('サインアップに成功しました', 'SUCCESS');
         this.router.navigate(['/gifts']);
       },
       (error) => {
