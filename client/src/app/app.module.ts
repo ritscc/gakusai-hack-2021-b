@@ -12,6 +12,7 @@ import { HeaderComponent } from './component/page/header/header.component';
 import { HeaderUserMenuComponent } from './component/container/header-user-menu/header-user-menu.component';
 import { ControlPanelComponent } from './component/container/control-panel/control-panel.component';
 import { HomeComponent } from './component/page/home/home.component';
+import { RankingComponent } from './component/page/ranking/ranking.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { HomeComponent } from './component/page/home/home.component';
     HeaderUserMenuComponent,
     ControlPanelComponent,
     HomeComponent,
+    RankingComponent,
   ],
   imports: [SharedModule, BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
