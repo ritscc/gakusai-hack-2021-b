@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { AlertService } from 'src/app/shared/service/alert.service';
@@ -12,11 +13,13 @@ import { SignUpRequest } from 'src/app/request/signup.request';
 export class SignupComponent implements OnInit {
   requestBody = {} as SignUpRequest;
   isHidden: boolean = true;
+  iconSrc!: SafeUrl;
 
   constructor(
     private router: Router,
     private authService: AuthService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {}
@@ -34,8 +37,26 @@ export class SignupComponent implements OnInit {
     );
   }
 
-  selectIconFile() {
-		// TODO
-    console.log('アイコン選択モーダルを表示');
+  onClickFileSelectButton(event: Event): void {
+    (event.target as HTMLInputElement).value = '';
+  }
+
+  onSelectFiles(event: Event): void {
+    const files: FileList | null = (event.target as HTMLInputElement).files;
+
+    if (files === null) {
+      return;
+    }
+
+    Array.from(files).forEach((file) => {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        const result = reader.result as string;
+        this.requestBody.icon = result.slice(result.indexOf(',') + 1);
+        this.iconSrc = this.sanitizer.bypassSecurityTrustUrl(result);
+      };
+    });
   }
 }

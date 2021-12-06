@@ -28,9 +28,21 @@
       <div
         class="user-icon-container mat-elevation-z3"
         fxLayoutAlign="center center"
-        (click)="selectIconFile()"
+        (click)="fileInput.click()"
       >
-        <mat-icon class="user-icon-no-image">supervised_user_circle</mat-icon>
+        <input
+          hidden
+          type="file"
+          accept="image/*"
+          multiple
+          #fileInput
+          (click)="onClickFileSelectButton($event)"
+          (change)="onSelectFiles($event)"
+        />
+        <img *ngIf="requestBody.icon" [src]="iconSrc" class="user-icon" />
+        <mat-icon *ngIf="!requestBody.icon" class="user-icon-no-image"
+          >supervised_user_circle</mat-icon
+        >
       </div>
     </mat-card-content>
   </mat-card>
@@ -55,7 +67,7 @@
 
   <span class="select-title project-fg-black1" fxFlexOffset="30px">4. パスワードを入力</span>
   <input
-    type="text"
+    [type]="isHidden ? 'password' : 'text'"
     [(ngModel)]="requestBody.password"
     placeholder="パスワード"
     name="login_password"

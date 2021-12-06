@@ -23,6 +23,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
+        path: 'gifts',
+        component: ProfileComponent,
+      },
+      {
         path: 'ranking',
         component: RankingComponent,
       },
