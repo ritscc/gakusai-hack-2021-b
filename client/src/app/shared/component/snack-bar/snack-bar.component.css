@@ -33,3 +33,7 @@
 .error-snack-bar-badge {
   color: #cf4538;
 }
+
+.error-message {
+  font-size: 0.9rem;
+}

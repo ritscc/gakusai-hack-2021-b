@@ -18,7 +18,7 @@ export class AuthService {
     private cookieService: CookieService
   ) {}
 
-	public login(requestBody: LoginRequest): Observable<AccessTokenModel> {
+  public login(requestBody: LoginRequest): Observable<AccessTokenModel> {
     return this.http.post<AccessTokenModel>(`${environment.API_BASE_URL}/api/login`, requestBody);
   }
 

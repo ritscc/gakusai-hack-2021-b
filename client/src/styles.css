@@ -13,6 +13,10 @@
   background-color: #3883dc;
 }
 
+.project-bg-purple1 {
+  background-color: #9165ea;
+}
+
 /* foreground colors */
 .project-fg-white1 {
   color: #ffffff;
@@ -42,4 +46,21 @@ body {
   height: calc(100vh - 65px - 50px);
   width: 100vw;
   overflow: auto;
+}
+
+.header-content {
+  width: 100%;
+  height: 65px;
+}
+
+.header-title {
+  white-space: nowrap;
+  font-weight: bold;
+  font-size: 16pt;
+  text-decoration: none;
+}
+
+.mat-snack-bar-container {
+  padding: 0 !important;
+  min-height: 50px !important;
 }
