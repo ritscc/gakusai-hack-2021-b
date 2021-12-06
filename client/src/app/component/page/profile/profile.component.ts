@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/shared/service/user.service';
+import { AlertService } from 'src/app/shared/service/alert.service';
+import { UserModel } from 'src/app/model/user.model';
 
 @Component({
   selector: 'app-profile',
@@ -6,7 +9,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  constructor() {}
+  loginUser!: UserModel;
 
-  ngOnInit(): void {}
+  constructor(private userService: UserService, private alertService: AlertService) {}
+
+  ngOnInit(): void {
+    this.userService.getLoginUser().subscribe(
+      (loginUser) => {
+        this.loginUser = loginUser;
+      },
+      (error) => {
+        this.alertService.openSnackBar(error, 'ERROR');
+      }
+    );
+  }
 }

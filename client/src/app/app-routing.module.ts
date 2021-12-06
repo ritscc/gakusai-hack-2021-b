@@ -31,6 +31,10 @@ const routes: Routes = [
         component: RankingComponent,
       },
       {
+        path: 'notifications',
+        component: ProfileComponent,
+      },
+      {
         path: 'profile',
         component: ProfileComponent,
       },
