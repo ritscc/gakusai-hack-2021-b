@@ -1,16 +1,16 @@
-<div class="profile-container" fxLayout="column" fxLayoutAlign="start center">
+<div *ngIf="loginUser" class="profile-container" fxLayout="column" fxLayoutAlign="start center">
   <div
     class="user-icon-container mat-elevation-z3"
     fxLayoutAlign="center center"
     fxFlexOffset="30px"
   >
-    <img
-      class="user-icon"
-      src="https://storage.googleapis.com/gift-tree-storage/icons/7c5f569b-bcb2-9383-e8d5-98a66024cfa9"
-    />
+    <mat-icon *ngIf="!loginUser.iconUrl" class="user-icon-no-image"
+      >supervised_user_circle</mat-icon
+    >
+    <img *ngIf="loginUser.iconUrl" class="user-icon" [src]="loginUser.iconUrl" />
   </div>
 
-  <span class="user-name" fxFlexOffset="30px">阿部 健太朗</span>
+  <span class="user-name" fxFlexOffset="30px">{{ loginUser.name }}</span>
 
   <div fxLayout="column" fxLayoutAlign="start start" fxFlexOffset="20px" style="width: 80%">
     <h3>最近のログ</h3>

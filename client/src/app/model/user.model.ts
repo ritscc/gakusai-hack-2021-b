@@ -3,6 +3,7 @@ export type UserModel = {
   name: string;
   email: string;
   password: string;
+  iconUrl: string;
 };
 
 export type UsersModel = {
