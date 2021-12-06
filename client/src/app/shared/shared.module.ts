@@ -31,8 +31,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 // pipes
-// import { UsernamePipe } from './pipe/username.pipe';
-// import { DatetimePipe } from './pipe/datetime.pipe';
+import { UsernamePipe } from './pipe/username.pipe';
+import { DatetimePipe } from './pipe/datetime.pipe';
 
 // interceptors
 // import { LoadingInterceptor } from './interceptor/loading.interceptor';
@@ -44,9 +44,8 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     // pipes
-    // UsernamePipe,
-    // DatetimePipe,
-    // components
+    UsernamePipe,
+    DatetimePipe,
   ],
   imports: [
     CommonModule,
@@ -120,8 +119,8 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModalModule,
 
     // pipes
-    // UsernamePipe,
-    // DatetimePipe,
+    UsernamePipe,
+    DatetimePipe,
   ],
 
   providers: [
