@@ -1,4 +1,6 @@
 .control-panel-container {
+  position: absolute;
+  bottom: 0;
   height: 50px;
 }
 

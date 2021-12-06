@@ -13,6 +13,7 @@ import { HeaderUserMenuComponent } from './component/container/header-user-menu/
 import { ControlPanelComponent } from './component/container/control-panel/control-panel.component';
 import { HomeComponent } from './component/page/home/home.component';
 import { RankingComponent } from './component/page/ranking/ranking.component';
+import { RankingTableComponent } from './component/container/ranking-table/ranking-table.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { RankingComponent } from './component/page/ranking/ranking.component';
     ControlPanelComponent,
     HomeComponent,
     RankingComponent,
+    RankingTableComponent,
   ],
   imports: [SharedModule, BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
