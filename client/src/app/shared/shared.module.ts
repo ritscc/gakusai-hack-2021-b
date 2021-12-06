@@ -41,6 +41,8 @@ import { AuthorizationInterceptor } from './interceptor/authorization.intercepto
 
 // components
 import { ProgressSpinnerComponent } from './component/progress-spinner/progress-spinner.component';
+import { SnackBarComponent } from './component/snack-bar/snack-bar.component';
+import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { ProgressSpinnerComponent } from './component/progress-spinner/progress-
     DatetimePipe,
     // components
     ProgressSpinnerComponent,
+    SnackBarComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     CommonModule,

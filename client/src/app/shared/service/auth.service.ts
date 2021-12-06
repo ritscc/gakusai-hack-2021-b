@@ -5,6 +5,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AccessTokenModel } from 'src/app/model/access-token.model';
+import { LoginRequest } from 'src/app/request/login.request';
+import { SignUpRequest } from 'src/app/request/signup.request';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +17,14 @@ export class AuthService {
     private http: HttpClient,
     private cookieService: CookieService
   ) {}
+
+	public login(requestBody: LoginRequest): Observable<AccessTokenModel> {
+    return this.http.post<AccessTokenModel>(`${environment.API_BASE_URL}/api/login`, requestBody);
+  }
+
+  public signup(requestBody: SignUpRequest): Observable<AccessTokenModel> {
+    return this.http.post<AccessTokenModel>(`${environment.API_BASE_URL}/api/signup`, requestBody);
+  }
 
   public logout(): void {
     this.cookieService.delete(environment.CREDENTIALS_KEY);
