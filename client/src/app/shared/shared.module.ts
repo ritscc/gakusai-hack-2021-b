@@ -35,17 +35,20 @@ import { UsernamePipe } from './pipe/username.pipe';
 import { DatetimePipe } from './pipe/datetime.pipe';
 
 // interceptors
-// import { LoadingInterceptor } from './interceptor/loading.interceptor';
-// import { HandleErrorInterceptor } from './interceptor/handle-error.interceptor';
-// import { AuthorizationInterceptor } from './interceptor/authorization.interceptor';
+import { LoadingInterceptor } from './interceptor/loading.interceptor';
+import { HandleErrorInterceptor } from './interceptor/handle-error.interceptor';
+import { AuthorizationInterceptor } from './interceptor/authorization.interceptor';
 
 // components
+import { ProgressSpinnerComponent } from './component/progress-spinner/progress-spinner.component';
 
 @NgModule({
   declarations: [
     // pipes
     UsernamePipe,
     DatetimePipe,
+    // components
+    ProgressSpinnerComponent,
   ],
   imports: [
     CommonModule,
@@ -125,9 +128,9 @@ import { DatetimePipe } from './pipe/datetime.pipe';
 
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'ja-JP' },
-    // { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: HandleErrorInterceptor, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HandleErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
   ],
 })
 export class SharedModule {}
