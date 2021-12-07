@@ -7,5 +7,5 @@ export type UserRankModel = {
 };
 
 export type RankingModel = {
-  userRanks: RankingModel[];
+  userRanks: UserRankModel[];
 };

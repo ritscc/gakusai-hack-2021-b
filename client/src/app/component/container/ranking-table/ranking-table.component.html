@@ -5,58 +5,48 @@
   fxLayoutAlign="space-between center"
 >
   <mat-card-content class="ranking-card-content project-fg-black1">
-    <div class="ranking-table-row" fxLayout="row" fxLayoutAlign="center center">
-      <mat-icon class="trophy-icon" [inline]="true" style="color: #dab300">emoji_events</mat-icon>
-      <div fxLayout="row" fxLayoutAlign="start center">
-        <img
-          class="user-icon"
-          src="https://storage.googleapis.com/gift-tree-storage/icons/7c5f569b-bcb2-9383-e8d5-98a66024cfa9"
-        />
-        <span class="user-name">阿部 健太朗</span>
-        <span class="score">25pt</span>
-      </div>
-    </div>
-    <div class="ranking-table-row" fxLayout="row" fxLayoutAlign="center center">
-      <mat-icon class="trophy-icon" [inline]="true" style="color: #bec1c3">emoji_events</mat-icon>
-      <div fxLayout="row" fxLayoutAlign="start center">
-        <img
-          class="user-icon"
-          src="https://storage.googleapis.com/gift-tree-storage/icons/a79707bd-e92a-bb12-4430-c4b7a08fc71a"
-        />
-        <span class="user-name">Averak</span>
-        <span class="score">18pt</span>
-      </div>
-    </div>
-    <div class="ranking-table-row" fxLayout="row" fxLayoutAlign="center center">
-      <mat-icon class="trophy-icon" [inline]="true" style="color: #c47022">emoji_events</mat-icon>
-      <div fxLayout="row" fxLayoutAlign="start center">
-        <img
-          class="user-icon"
-          src="https://storage.googleapis.com/gift-tree-storage/icons/cecc18d8-fa64-018d-9dc3-f3b0faf9353f"
-        />
-        <span class="user-name">FKD</span>
-        <span class="score">13pt</span>
-      </div>
+    <div *ngFor="let trophy of trophies" class="ranking-table-row">
+      <section *ngIf="trophy.userRank" fxLayout="row" fxLayoutAlign="center center">
+        <mat-icon class="trophy-icon" [inline]="true" [class]="trophy.color">emoji_events</mat-icon>
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <mat-icon *ngIf="!trophy.userRank.user.iconUrl" class="user-icon-no-image"
+            >supervised_user_circle</mat-icon
+          >
+          <img
+            *ngIf="trophy.userRank.user.iconUrl"
+            class="user-icon"
+            [src]="trophy.userRank.user.iconUrl"
+          />
+          <span class="user-name">{{ trophy.userRank.user.name }}</span>
+          <span class="score">{{ trophy.userRank.score }}pt</span>
+        </div>
+      </section>
     </div>
   </mat-card-content>
 </mat-card>
 
 <!-- ログインユーザ -->
 <mat-card
-  class="ranking-card mat-elevation-z0"
+  *ngIf="loginUserRank"
+  class="ranking-card login-user-ranking-card mat-elevation-z0"
   fxLayout="column"
   fxLayoutAlign="space-between center"
 >
   <mat-card-content class="ranking-card-content project-fg-black1">
     <div class="ranking-table-row" fxLayout="row" fxLayoutAlign="center center">
-      <span class="login-user-rank">13位</span>
+      <span class="login-user-rank">{{ loginUserRank.rank }}位</span>
       <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon *ngIf="!loginUserRank.user.iconUrl" class="user-icon-no-image"
+          >supervised_user_circle</mat-icon
+        >
         <img
+          *ngIf="loginUserRank.user.iconUrl"
           class="user-icon"
-          src="https://storage.googleapis.com/gift-tree-storage/icons/7c5f569b-bcb2-9383-e8d5-98a66024cfa9"
+          [src]="loginUserRank.user.iconUrl"
         />
-        <span class="user-name">阿部 健太朗</span>
-        <span class="score">2pt</span>
+
+        <span class="user-name">{{ loginUserRank.user.name }}</span>
+        <span class="score">{{ loginUserRank.score }}pt</span>
       </div>
     </div>
   </mat-card-content>
