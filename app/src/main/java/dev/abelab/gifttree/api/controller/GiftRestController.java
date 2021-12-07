@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import io.swagger.annotations.*;
 import lombok.*;
 import dev.abelab.gifttree.annotation.Authenticated;
+import dev.abelab.gifttree.api.response.GiftsResponse;
 import dev.abelab.gifttree.db.entity.User;
 import dev.abelab.gifttree.service.GiftService;
 
@@ -33,7 +34,7 @@ public class GiftRestController {
     )
     @ApiResponses( //
         value = { //
-                @ApiResponse(code = 200, message = "成功"), //
+                @ApiResponse(code = 200, message = "受け取り成功"), //
                 @ApiResponse(code = 401, message = "ユーザがログインしていない"), //
                 @ApiResponse(code = 409, message = "既に受け取り済み"), //
         } //
@@ -45,6 +46,31 @@ public class GiftRestController {
         @ModelAttribute("LoginUser") final User loginUser //
     ) {
         this.giftService.obtainGift(giftId, loginUser);
+    }
+
+    /**
+     * 所持ギフト一覧取得API
+     *
+     * @param loginUser ログインユーザ
+     *
+     * @return ギフト一覧
+     */
+    @ApiOperation( //
+        value = "所持ギフト一覧の取得", //
+        notes = "所持ギフト一覧を取得する。" //
+    )
+    @ApiResponses( //
+        value = { //
+                @ApiResponse(code = 200, message = "取得成功"), //
+                @ApiResponse(code = 401, message = "ユーザがログインしていない"), //
+        } //
+    )
+    @GetMapping(value = "/users/me/gifts")
+    @ResponseStatus(HttpStatus.OK)
+    public GiftsResponse getLoginUserGifts( //
+        @ModelAttribute("LoginUser") final User loginUser //
+    ) {
+        return this.giftService.getLoginUserGifts(loginUser);
     }
 
 }

@@ -1,11 +1,13 @@
 package dev.abelab.gifttree.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import dev.abelab.gifttree.db.entity.UserGift;
+import dev.abelab.gifttree.db.entity.UserGiftExample;
 import dev.abelab.gifttree.db.mapper.UserGiftMapper;
 import dev.abelab.gifttree.exception.ErrorCode;
 import dev.abelab.gifttree.exception.NotFoundException;
@@ -55,6 +57,19 @@ public class UserGiftRepository {
         } catch (NotFoundException e) {
             return false;
         }
+    }
+
+    /**
+     * ユーザIDからギフトを取得
+     *
+     * @param userId
+     *
+     * @return ギフト一覧
+     */
+    public List<UserGift> selectByUserId(final int userId) {
+        final var userGiftExample = new UserGiftExample();
+        userGiftExample.createCriteria().andUserIdEqualTo(userId);
+        return this.userGiftMapper.selectByExample(userGiftExample);
     }
 
 }
