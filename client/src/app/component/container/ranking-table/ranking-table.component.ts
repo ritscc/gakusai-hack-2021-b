@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RankingService } from 'src/app/shared/service/ranking.service';
-import { RankModel } from 'src/app/model/rank.model';
+import { UserRankModel } from 'src/app/model/rank.model';
 
 @Component({
   selector: 'app-ranking-table',
@@ -8,10 +8,10 @@ import { RankModel } from 'src/app/model/rank.model';
   styleUrls: ['./ranking-table.component.css'],
 })
 export class RankingTableComponent implements OnInit {
-  firstRank!: RankModel[];
-  secondRank!: RankModel[];
-  thirdRank!: RankModel[];
-  loginUserRank!: RankModel[];
+  firstRank!: UserRankModel[];
+  secondRank!: UserRankModel[];
+  thirdRank!: UserRankModel[];
+  loginUserRank!: UserRankModel[];
 
   constructor(private rankingService: RankingService) {}
 
