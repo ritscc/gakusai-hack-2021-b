@@ -1,5 +1,5 @@
 .control-panel-container {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   height: 50px;
 }

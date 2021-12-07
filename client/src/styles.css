@@ -33,18 +33,21 @@
 /* other settings */
 body {
   margin: 0;
+  min-height: calc(var(--vh, 1vh) * 100);
+}
+
+html {
+  height: calc(var(--vh, 1vh) * 100);
 }
 
 .page-container {
-  height: 100vh;
-  min-height: -webkit-fill-available;
+  min-height: calc(var(--vh, 1vh) * 100);
 }
 
 .main-container {
-  /* ヘッダーとコントロールパネルの高さ分引く */
-  height: calc(100vh - 65px - 50px);
+  /* ヘッダーの高さ分引く */
+  min-height: calc(var(--vh, 1vh) * 100 - 65px);
   width: 100vw;
-  overflow: auto;
 }
 
 .header-content {
