@@ -16,11 +16,13 @@ import org.modelmapper.ModelMapper;
 
 import dev.abelab.gifttree.api.response.GiftResponse;
 import dev.abelab.gifttree.api.response.GiftsResponse;
+import dev.abelab.gifttree.api.request.GiftShareRequest;
 import dev.abelab.gifttree.db.mapper.UserMapper;
 import dev.abelab.gifttree.db.mapper.GiftMapper;
 import dev.abelab.gifttree.db.mapper.UserGiftMapper;
 import dev.abelab.gifttree.db.entity.UserGift;
 import dev.abelab.gifttree.enums.UserGiftTypeEnum;
+import dev.abelab.gifttree.helper.sample.UserSample;
 import dev.abelab.gifttree.helper.sample.GiftSample;
 import dev.abelab.gifttree.helper.sample.UserGiftSample;
 import dev.abelab.gifttree.exception.ErrorCode;
@@ -37,6 +39,7 @@ public class GiftRestController_IT extends AbstractRestController_IT {
 	static final String BASE_PATH = "/api";
 	static final String OBTAIN_GIFT_PATH = BASE_PATH + "/gifts/%d/obtain";
 	static final String GET_LOGIN_USER_GIFTS_PATH = BASE_PATH + "/users/me/gifts";
+	static final String SHARE_GIFT_PATH = BASE_PATH + "/users/%d/gifts";
 
 	@Autowired
 	ModelMapper modelMapper;
@@ -172,6 +175,196 @@ public class GiftRestController_IT extends AbstractRestController_IT {
 			 * test & verify
 			 */
 			final var request = getRequest(GET_LOGIN_USER_GIFTS_PATH);
+			request.header(HttpHeaders.AUTHORIZATION, "");
+			execute(request, new UnauthorizedException(ErrorCode.INVALID_ACCESS_TOKEN));
+		}
+
+	}
+
+	/**
+	 * ギフトおすそわけAPIの統合テスト
+	 */
+	@Nested
+	@TestInstance(PER_CLASS)
+	class ShareGift_IT extends AbstractRestControllerInitialization_IT {
+
+		@Test
+		void 正_ギフトをおすそわけ() throws Exception {
+			/*
+			 * given
+			 */
+			final var loginUser = createLoginUser(true);
+			final var credentials = getLoginUserCredentials(loginUser);
+
+			final var gift = GiftSample.builder().build();
+			giftMapper.insert(gift);
+
+			final var loginUserGift = UserGiftSample.builder().userId(loginUser.getId()).giftId(gift.getId()).quantity(10).build();
+			userGiftMapper.insert(loginUserGift);
+
+			final var user = UserSample.builder().build();
+			userMapper.insert(user);
+
+			final var requestBody = GiftShareRequest.builder() //
+				.giftId(gift.getId()) //
+				.build();
+
+			/*
+			 * test
+			 */
+			final var request = postRequest(String.format(SHARE_GIFT_PATH, user.getId()), requestBody);
+			request.header(HttpHeaders.AUTHORIZATION, credentials);
+			execute(request, HttpStatus.OK);
+
+			/*
+			 * verify
+			 */
+			final var updatedLoginUserGift = userGiftMapper.selectByPrimaryKey(loginUser.getId(), gift.getId());
+			assertThat(updatedLoginUserGift.getQuantity()).isEqualTo(9);
+			final var createdUserGift = userGiftMapper.selectByPrimaryKey(user.getId(), gift.getId());
+			assertThat(createdUserGift).extracting(UserGift::getType, UserGift::getQuantity, UserGift::getReceivedBy) //
+				.containsExactly(UserGiftTypeEnum.FRIEND.getId(), 1, loginUser.getId());
+		}
+
+		@Test
+		void 正_ギフトの残りが1の場合_削除される() throws Exception {
+			/*
+			 * given
+			 */
+			final var loginUser = createLoginUser(true);
+			final var credentials = getLoginUserCredentials(loginUser);
+
+			final var gift = GiftSample.builder().build();
+			giftMapper.insert(gift);
+
+			final var loginUserGift = UserGiftSample.builder().userId(loginUser.getId()).giftId(gift.getId()).quantity(1).build();
+			userGiftMapper.insert(loginUserGift);
+
+			final var user = UserSample.builder().build();
+			userMapper.insert(user);
+
+			final var requestBody = GiftShareRequest.builder() //
+				.giftId(gift.getId()) //
+				.build();
+
+			/*
+			 * test
+			 */
+			final var request = postRequest(String.format(SHARE_GIFT_PATH, user.getId()), requestBody);
+			request.header(HttpHeaders.AUTHORIZATION, credentials);
+			execute(request, HttpStatus.OK);
+
+			/*
+			 * verify
+			 */
+			final var updatedLoginUserGift = userGiftMapper.selectByPrimaryKey(loginUser.getId(), gift.getId());
+			assertThat(updatedLoginUserGift).isNull();
+		}
+
+		@Test
+		void 正_相手が既にギフトを所持していた場合_1加算される() throws Exception {
+			/*
+			 * given
+			 */
+			final var loginUser = createLoginUser(true);
+			final var credentials = getLoginUserCredentials(loginUser);
+
+			final var user = UserSample.builder().build();
+			userMapper.insert(user);
+
+			final var gift = GiftSample.builder().build();
+			giftMapper.insert(gift);
+
+			final var userGifts = Arrays.asList( //
+				UserGiftSample.builder().userId(loginUser.getId()).giftId(gift.getId()).build(), //
+				UserGiftSample.builder().userId(user.getId()).giftId(gift.getId()).build() //
+			);
+			userGifts.forEach(userGiftMapper::insert);
+
+			final var requestBody = GiftShareRequest.builder() //
+				.giftId(gift.getId()) //
+				.build();
+
+			/*
+			 * test
+			 */
+			final var request = postRequest(String.format(SHARE_GIFT_PATH, user.getId()), requestBody);
+			request.header(HttpHeaders.AUTHORIZATION, credentials);
+			execute(request, HttpStatus.OK);
+
+			/*
+			 * verify
+			 */
+			final var updatedUserGift = userGiftMapper.selectByPrimaryKey(user.getId(), gift.getId());
+			assertThat(updatedUserGift.getQuantity()).isEqualTo(userGifts.get(0).getQuantity() + 1);
+		}
+
+		@Test
+		void 異_おすそわけする相手ユーザが存在しない() throws Exception {
+			/*
+			 * given
+			 */
+			final var loginUser = createLoginUser(true);
+			final var credentials = getLoginUserCredentials(loginUser);
+
+			final var gift = GiftSample.builder().build();
+			giftMapper.insert(gift);
+
+			final var loginUserGift = UserGiftSample.builder().userId(loginUser.getId()).giftId(gift.getId()).quantity(10).build();
+			userGiftMapper.insert(loginUserGift);
+
+			final var requestBody = GiftShareRequest.builder() //
+				.giftId(gift.getId()) //
+				.build();
+
+			/*
+			 * test & verify
+			 */
+			final var request = postRequest(String.format(SHARE_GIFT_PATH, loginUser.getId() + 1), requestBody);
+			request.header(HttpHeaders.AUTHORIZATION, credentials);
+			execute(request, new NotFoundException(ErrorCode.NOT_FOUND_USER));
+		}
+
+		@Test
+		void 異_ギフトを所持していない() throws Exception {
+			/*
+			 * given
+			 */
+			final var loginUser = createLoginUser(true);
+			final var credentials = getLoginUserCredentials(loginUser);
+
+			final var gift = GiftSample.builder().build();
+			giftMapper.insert(gift);
+
+			final var user = UserSample.builder().build();
+			userMapper.insert(user);
+
+			final var requestBody = GiftShareRequest.builder() //
+				.giftId(gift.getId()) //
+				.build();
+
+			/*
+			 * test & verify
+			 */
+			final var request = postRequest(String.format(SHARE_GIFT_PATH, user.getId()), requestBody);
+			request.header(HttpHeaders.AUTHORIZATION, credentials);
+			execute(request, new NotFoundException(ErrorCode.NOT_FOUND_USER_GIFT));
+
+		}
+
+		@Test
+		void 異_無効な認証ヘッダ() throws Exception {
+			/*
+			 * given
+			 */
+			final var requestBody = GiftShareRequest.builder() //
+				.giftId(SAMPLE_INT) //
+				.build();
+
+			/*
+			 * test & verify
+			 */
+			final var request = postRequest(String.format(SHARE_GIFT_PATH, SAMPLE_INT), requestBody);
 			request.header(HttpHeaders.AUTHORIZATION, "");
 			execute(request, new UnauthorizedException(ErrorCode.INVALID_ACCESS_TOKEN));
 		}
