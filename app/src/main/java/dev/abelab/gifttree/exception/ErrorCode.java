@@ -25,10 +25,14 @@ public enum ErrorCode {
 
     NOT_FOUND_GIFT(1102, "exception.not_found.gift"),
 
+    NOT_FOUND_USER_GIFT(1103, "exception.not_found.user_gift"),
+
     /**
      * Conflict: 1200~1299
      */
     CONFLICT_EMAIL(1200, "exception.conflict.email"),
+
+    GIFT_ALREADY_OBTAINED(1201, "exception.conflict.gift_already_obtained"),
 
     /**
      * Forbidden: 1300~1399

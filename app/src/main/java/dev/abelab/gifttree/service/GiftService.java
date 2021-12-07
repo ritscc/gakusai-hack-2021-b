@@ -9,6 +9,8 @@ import dev.abelab.gifttree.db.entity.UserGift;
 import dev.abelab.gifttree.enums.UserGiftTypeEnum;
 import dev.abelab.gifttree.repository.GiftRepository;
 import dev.abelab.gifttree.repository.UserGiftRepository;
+import dev.abelab.gifttree.exception.ErrorCode;
+import dev.abelab.gifttree.exception.ConflictException;
 
 @RequiredArgsConstructor
 @Service
@@ -28,6 +30,10 @@ public class GiftService {
     public void obtainGift(final int giftId, final User loginUser) {
         // 獲得対象ギフトを取得
         final var gift = this.giftRepository.selectById(giftId);
+
+        if (this.userGiftRepository.existsByPrimaryKey(loginUser.getId(), giftId)) {
+            throw new ConflictException(ErrorCode.GIFT_ALREADY_OBTAINED);
+        }
 
         // ユーザギフトを作成
         final var userGift = UserGift.builder() //

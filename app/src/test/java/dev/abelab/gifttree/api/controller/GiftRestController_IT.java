@@ -84,7 +84,22 @@ public class GiftRestController_IT extends AbstractRestController_IT {
 
 		@Test
 		void 異_受け取り済みのギフトは受け取れない() throws Exception {
+			/*
+			 * given
+			 */
+			final var loginUser = createLoginUser(true);
+			final var credentials = getLoginUserCredentials(loginUser);
 
+			final var gift = GiftSample.builder().build();
+			giftMapper.insert(gift);
+
+			/*
+			 * test & verify
+			 */
+			final var request = postRequest(String.format(OBTAIN_GIFT_PATH, gift.getId()));
+			request.header(HttpHeaders.AUTHORIZATION, credentials);
+			execute(request, HttpStatus.CREATED);
+			execute(request, new ConflictException(ErrorCode.GIFT_ALREADY_OBTAINED));
 		}
 
 		@Test

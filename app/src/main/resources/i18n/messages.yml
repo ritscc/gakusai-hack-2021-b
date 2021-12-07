@@ -6,8 +6,10 @@ exception:
     api: "APIが見つかりません。"
     user: "ユーザが見つかりません。"
     gift: "ギフトが見つかりません。"
+    user_gift: "ユーザのギフトが見つかりません。"
   conflict:
     email: "そのメールアドレスはすでに登録済みです。"
+    gift_already_obtained: "ギフトは受け取り済みです。"
   forbidden:
     user_has_no_permission: "その動作は許可されていません。"
   bad_request:
