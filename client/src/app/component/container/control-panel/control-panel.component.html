@@ -8,7 +8,7 @@
       class="control-panel-button"
       fxLayout="column"
       fxLayoutAlign="start center"
-      [routerLink]="'/gifts'"
+      (click)="onClickGiftButton()"
     >
       <mat-icon>redeem</mat-icon>
       <span>ギフト</span>
@@ -18,7 +18,7 @@
       class="control-panel-button"
       fxLayout="column"
       fxLayoutAlign="start center"
-      [routerLink]="'/ranking'"
+      (click)="onClickRankingButton()"
     >
       <mat-icon>emoji_events</mat-icon>
       <span>ランキング</span>
@@ -35,7 +35,7 @@
       class="control-panel-button"
       fxLayout="column"
       fxLayoutAlign="start center"
-      [routerLink]="'/notifications'"
+			(click)="onClickNotificationsButton()"
     >
       <mat-icon>notifications</mat-icon>
       <span>通知</span>
@@ -45,7 +45,7 @@
       class="control-panel-button"
       fxLayout="column"
       fxLayoutAlign="start center"
-      [routerLink]="'/profile'"
+			(click)="onClickProfileButton()"
     >
       <mat-icon>settings</mat-icon>
       <span>設定</span>
