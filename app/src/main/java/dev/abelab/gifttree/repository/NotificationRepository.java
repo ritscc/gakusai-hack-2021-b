@@ -25,7 +25,19 @@ public class NotificationRepository {
     public List<Notification> selectByUserId(final int userId) {
         final var notificationExample = new NotificationExample();
         notificationExample.createCriteria().andUserIdEqualTo(userId);
+        notificationExample.setOrderByClause("created_at desc");
         return this.notificationMapper.selectByExample(notificationExample);
+    }
+
+    /**
+     * 通知を作成
+     *
+     * @param notification 通知
+     *
+     * @return 通知ID
+     */
+    public int insert(final Notification notification) {
+        return this.notificationMapper.insertSelective(notification);
     }
 
 }
