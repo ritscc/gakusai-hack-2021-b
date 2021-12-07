@@ -60,16 +60,32 @@ public class UserGiftRepository {
     }
 
     /**
-     * ユーザIDからギフトを取得
+     * ユーザIDからユーザギフトを取得
      *
      * @param userId
      *
-     * @return ギフト一覧
+     * @return ユーザギフト一覧
      */
     public List<UserGift> selectByUserId(final int userId) {
         final var userGiftExample = new UserGiftExample();
         userGiftExample.createCriteria().andUserIdEqualTo(userId);
         return this.userGiftMapper.selectByExample(userGiftExample);
+    }
+
+    /**
+     * ユーザギフトを削除
+     */
+    public void delete(final int userId, final int giftId) {
+        this.userGiftMapper.deleteByPrimaryKey(userId, giftId);
+    }
+
+    /**
+     * ユーザギフトを更新
+     *
+     * @param userGift ユーザギフト
+     */
+    public void update(final UserGift userGift) {
+        this.userGiftMapper.updateByPrimaryKeySelective(userGift);
     }
 
 }
