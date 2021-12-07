@@ -2,6 +2,10 @@
   width: 80vw;
 }
 
+.login-user-ranking-card {
+  margin-top: 20px;
+}
+
 .ranking-card-content {
   width: 80%;
 }
@@ -18,7 +22,8 @@
 
 .user-icon {
   width: 30px;
-  width: 30px;
+  height: 30px;
+  object-fit: cover;
   border-radius: 50%;
 }
 
@@ -36,4 +41,16 @@
 .login-user-rank {
   width: 60px;
   margin-right: 20px;
+}
+
+.trophy-gold {
+  color: #dab300;
+}
+
+.trophy-silver {
+  color: #bec1c3;
+}
+
+.trophy-copper {
+  color: #c47022;
 }
