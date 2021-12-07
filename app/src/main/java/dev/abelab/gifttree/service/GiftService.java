@@ -1,5 +1,6 @@
 package dev.abelab.gifttree.service;
 
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -12,10 +13,12 @@ import dev.abelab.gifttree.api.response.GiftsResponse;
 import dev.abelab.gifttree.api.request.GiftShareRequest;
 import dev.abelab.gifttree.db.entity.User;
 import dev.abelab.gifttree.db.entity.UserGift;
+import dev.abelab.gifttree.db.entity.Notification;
 import dev.abelab.gifttree.enums.UserGiftTypeEnum;
 import dev.abelab.gifttree.repository.GiftRepository;
 import dev.abelab.gifttree.repository.UserGiftRepository;
 import dev.abelab.gifttree.repository.UserRepository;
+import dev.abelab.gifttree.repository.NotificationRepository;
 import dev.abelab.gifttree.exception.ErrorCode;
 import dev.abelab.gifttree.exception.ConflictException;
 import dev.abelab.gifttree.exception.BadRequestException;
@@ -31,6 +34,8 @@ public class GiftService {
     private final UserGiftRepository userGiftRepository;
 
     private final UserRepository userRepository;
+
+    private final NotificationRepository notificationRepository;
 
     /**
      * ギフトを獲得
@@ -56,6 +61,14 @@ public class GiftService {
             .receivedBy(null) //
             .build();
         this.userGiftRepository.insert(userGift);
+
+        // 通知を作成
+        final var notification = Notification.builder() //
+            .userId(loginUser.getId()) //
+            .title(gift.getName() + "を店頭で受け取りました") //
+            .description("") //
+            .build();
+        this.notificationRepository.insert(notification);
     }
 
     /**
@@ -120,6 +133,21 @@ public class GiftService {
                 .build();
             this.userGiftRepository.insert(createdUserGift);
         }
+
+        // 通知を作成
+        final var notifications = Arrays.asList( //
+            Notification.builder() //
+                .userId(loginUser.getId()) //
+                .title(user.getName() + "にギフトを送りました") //
+                .description("") //
+                .build(), //
+            Notification.builder() //
+                .userId(user.getId()) //
+                .title(loginUser.getName() + "からギフトを受け取りました") //
+                .description("") //
+                .build() //
+        );
+        notifications.forEach(this.notificationRepository::insert);
     }
 
 }
