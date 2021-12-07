@@ -1,7 +1,6 @@
 package dev.abelab.gifttree.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +14,18 @@ import dev.abelab.gifttree.db.mapper.NotificationMapper;
 public class NotificationRepository {
 
     private final NotificationMapper notificationMapper;
+
+    /**
+     * ユーザIDから通知を検索
+     *
+     * @param userId ユーザID
+     *
+     * @return 通知一覧
+     */
+    public List<Notification> selectByUserId(final int userId) {
+        final var notificationExample = new NotificationExample();
+        notificationExample.createCriteria().andUserIdEqualTo(userId);
+        return this.notificationMapper.selectByExample(notificationExample);
+    }
 
 }
