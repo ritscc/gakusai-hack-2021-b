@@ -17,5 +17,8 @@
     <li *ngFor="let notification of notifications">
       <span class="log-text">{{ notification.title }}</span>
     </li>
+    <li *ngIf="notifications.length === 0">
+      <span class="log-text">直近のアクティビティはありません</span>
+    </li>
   </div>
 </div>
