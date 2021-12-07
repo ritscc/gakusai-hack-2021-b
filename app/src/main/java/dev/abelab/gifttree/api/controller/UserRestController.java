@@ -1,17 +1,18 @@
 package dev.abelab.gifttree.api.controller;
 
-import dev.abelab.gifttree.api.request.LoginUserUpdateRequest;
-import dev.abelab.gifttree.api.response.UsersResponse;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
+import org.modelmapper.ModelMapper;
 
 import io.swagger.annotations.*;
 import lombok.*;
 import dev.abelab.gifttree.annotation.Authenticated;
+import dev.abelab.gifttree.api.request.LoginUserUpdateRequest;
+import dev.abelab.gifttree.api.response.UsersResponse;
 import dev.abelab.gifttree.api.response.UserResponse;
+import dev.abelab.gifttree.api.response.NotificationsResponse;
 import dev.abelab.gifttree.db.entity.User;
 import dev.abelab.gifttree.service.UserService;
 
@@ -92,22 +93,46 @@ public class UserRestController {
      * @param requestBody ログインユーザ更新リクエスト
      */
     @ApiOperation( //
-      value = "ログインユーザの更新", //
-      notes = "ログインユーザを更新する。" //
+        value = "ログインユーザの更新", //
+        notes = "ログインユーザを更新する。" //
     )
     @ApiResponses( //
-      value = { //
-        @ApiResponse(code = 200, message = "更新成功"), //
-        @ApiResponse(code = 401, message = "ユーザがログインしていない"), //
-      } //
+        value = { //
+                @ApiResponse(code = 200, message = "更新成功"), //
+                @ApiResponse(code = 401, message = "ユーザがログインしていない"), //
+        } //
     )
     @PutMapping(value = "/me")
     @ResponseStatus(HttpStatus.OK)
     public void updateLoginUser( //
-      @ModelAttribute("LoginUser") final User loginUser, //
-      @Validated @ApiParam(name = "body", required = true, value = "ユーザ更新情報") @RequestBody final LoginUserUpdateRequest requestBody //
+        @ModelAttribute("LoginUser") final User loginUser, //
+        @Validated @ApiParam(name = "body", required = true, value = "ユーザ更新情報") @RequestBody final LoginUserUpdateRequest requestBody //
     ) {
         this.userService.updateLoginUser(requestBody, loginUser);
+    }
+
+    /**
+     * 通知取得API
+     *
+     * @param loginUser ログインユーザ
+     *
+     * @return 通知レスポンス
+     */
+    @ApiOperation( //
+        value = "通知取得", //
+        notes = "通知を取得する。" //
+    )
+    @ApiResponses( //
+        value = { //
+                @ApiResponse(code = 200, message = "取得成功", response = NotificationsResponse.class), //
+                @ApiResponse(code = 401, message = "ユーザがログインしていない"), //
+        })
+    @GetMapping(value = "/me/notifications")
+    @ResponseStatus(HttpStatus.OK)
+    public NotificationsResponse getNotifications( //
+        @ModelAttribute("LoginUser") final User loginUser //
+    ) {
+        return this.userService.getNotifications(loginUser);
     }
 
 }
