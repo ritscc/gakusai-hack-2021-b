@@ -5,6 +5,7 @@ exception:
   not_found:
     api: "APIが見つかりません。"
     user: "ユーザが見つかりません。"
+    gift: "ギフトが見つかりません。"
   conflict:
     email: "そのメールアドレスはすでに登録済みです。"
   forbidden:

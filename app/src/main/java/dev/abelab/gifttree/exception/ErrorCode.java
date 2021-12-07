@@ -23,6 +23,8 @@ public enum ErrorCode {
 
     NOT_FOUND_USER(1101, "exception.not_found.user"),
 
+    NOT_FOUND_GIFT(1102, "exception.not_found.gift"),
+
     /**
      * Conflict: 1200~1299
      */

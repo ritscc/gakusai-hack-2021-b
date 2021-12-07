@@ -16,4 +16,15 @@ public class UserGiftRepository {
 
     private final UserGiftMapper userGiftMapper;
 
+    /**
+     * ユーザギフトを作成
+     *
+     * @param userGift ユーザギフト
+     *
+     * @return ユーザギフトID
+     */
+    public int insert(final UserGift userGift) {
+        return this.userGiftMapper.insertSelective(userGift);
+    }
+
 }
