@@ -14,8 +14,11 @@
 
   <div fxLayout="column" fxLayoutAlign="start start" fxFlexOffset="20px" style="width: 80%">
     <h3>最近のログ</h3>
-    <span class="log-text">2021/12/6 クマさんからギフトを受け取りました</span>
-    <span class="log-text">2021/12/6 FKDにギフトを送りました</span>
-    <span class="log-text">2021/12/6 アカウント作成</span>
+    <li *ngFor="let notification of notifications">
+      <span class="log-text">{{ notification.title }}</span>
+    </li>
+    <li *ngIf="notifications.length === 0">
+      <span class="log-text">直近のアクティビティはありません</span>
+    </li>
   </div>
 </div>

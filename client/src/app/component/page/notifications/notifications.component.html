@@ -1,0 +1,14 @@
+<div fxLayout="column" fxLayoutAlign="start center" style="margin-top: 30px">
+  <section *ngFor="let notification of notifications" class="notification-container">
+    <span class="notification-date">{{
+      notification.createdAt | datetime: 'YYYY/MM/DD HH:mm'
+    }}</span>
+    <br />
+    <span class="notification-title">{{ notification.title }}</span>
+    <hr color="#d6d6d6" />
+  </section>
+
+  <section *ngIf="notifications.length === 0">
+    <span>通知はありません</span>
+  </section>
+</div>

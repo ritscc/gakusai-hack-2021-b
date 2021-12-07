@@ -11,6 +11,7 @@ import { LoginComponent } from './component/page/login/login.component';
 import { SignupComponent } from './component/page/signup/signup.component';
 import { HeaderComponent } from './component/page/header/header.component';
 import { RankingComponent } from './component/page/ranking/ranking.component';
+import { NotificationsComponent } from './component/page/notifications/notifications.component';
 import { ProfileComponent } from './component/page/profile/profile.component';
 
 const routes: Routes = [
@@ -33,7 +34,7 @@ const routes: Routes = [
       },
       {
         path: 'notifications',
-        component: ProfileComponent,
+        component: NotificationsComponent,
       },
       {
         path: 'profile',
