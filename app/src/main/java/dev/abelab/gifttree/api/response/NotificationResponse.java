@@ -21,7 +21,7 @@ public class NotificationResponse {
     /**
      * タイトル
      */
-    String name;
+    String title;
 
     /**
      * 通知日

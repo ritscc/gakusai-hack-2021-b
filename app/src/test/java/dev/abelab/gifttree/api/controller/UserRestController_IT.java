@@ -1,5 +1,7 @@
 package dev.abelab.gifttree.api.controller;
 
+import java.util.Arrays;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.TestInstance.Lifecycle.*;
 
@@ -9,6 +11,7 @@ import dev.abelab.gifttree.db.entity.User;
 import dev.abelab.gifttree.db.entity.UserExample;
 import dev.abelab.gifttree.exception.ConflictException;
 import dev.abelab.gifttree.helper.sample.UserSample;
+import dev.abelab.gifttree.helper.sample.NotificationSample;
 import dev.abelab.gifttree.helper.util.RandomUtil;
 import mockit.Mocked;
 import org.junit.jupiter.api.Nested;
@@ -20,7 +23,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.modelmapper.ModelMapper;
 
 import dev.abelab.gifttree.api.response.UserResponse;
+import dev.abelab.gifttree.api.response.NotificationsResponse;
+import dev.abelab.gifttree.api.response.NotificationResponse;
 import dev.abelab.gifttree.db.mapper.UserMapper;
+import dev.abelab.gifttree.db.mapper.NotificationMapper;
 import dev.abelab.gifttree.exception.ErrorCode;
 import dev.abelab.gifttree.exception.NotFoundException;
 import dev.abelab.gifttree.exception.UnauthorizedException;
@@ -34,12 +40,16 @@ public class UserRestController_IT extends AbstractRestController_IT {
 	static final String BASE_PATH = "/api/users";
 	static final String GET_LOGIN_USER_PATH = BASE_PATH + "/me";
 	static final String UPDATE_LOGIN_USER_PATH = BASE_PATH + "/me";
+	static final String GET_NOTIFICATIONS_PATH = BASE_PATH + "/me/notifications";
 
 	@Autowired
 	ModelMapper modelMapper;
 
 	@Autowired
 	UserMapper userMapper;
+
+	@Autowired
+	NotificationMapper notificationMapper;
 
 	@Mocked
 	CloudStorageClient cloudStorageClient;
@@ -108,7 +118,7 @@ public class UserRestController_IT extends AbstractRestController_IT {
 	 */
 	@Nested
 	@TestInstance(PER_CLASS)
-	class UpdateLoginUserTest extends AbstractRestControllerInitialization_IT {
+	class UpdateLoginUser_IT extends AbstractRestControllerInitialization_IT {
 
 		@Test
 		void 正_ログインユーザを更新() throws Exception {
@@ -139,8 +149,8 @@ public class UserRestController_IT extends AbstractRestController_IT {
 			}).stream().findFirst();
 			assertThat(updatedUser.isPresent()).isTrue();
 			assertThat(updatedUser.get()) //
-			.extracting(User::getEmail, User::getName) //
-			.containsExactly(loginUser.getEmail(), loginUser.getName());
+				.extracting(User::getEmail, User::getName) //
+				.containsExactly(loginUser.getEmail(), loginUser.getName());
 		}
 
 		@Test
@@ -202,5 +212,67 @@ public class UserRestController_IT extends AbstractRestController_IT {
 
 	}
 
+	/**
+	 * 通知取得APIのテスト
+	 */
+	@Nested
+	@TestInstance(PER_CLASS)
+	class GetNotifications_IT extends AbstractRestControllerInitialization_IT {
+
+		@Test
+		void 正_通知を取得() throws Exception {
+			/*
+			 * given
+			 */
+			final var loginUser = createLoginUser(true);
+			final var credentials = getLoginUserCredentials(loginUser);
+
+			final var anotherUser = UserSample.builder().email(RandomUtil.generateEmail()).build();
+			userMapper.insert(anotherUser);
+
+			final var loginUserNotifications = Arrays.asList( //
+				NotificationSample.builder().userId(loginUser.getId()).build(), //
+				NotificationSample.builder().userId(loginUser.getId()).build(), //
+				NotificationSample.builder().userId(loginUser.getId()).build() //
+			);
+			loginUserNotifications.forEach(notificationMapper::insert);
+
+			final var anotherUserNotifications = Arrays.asList( //
+				NotificationSample.builder().userId(anotherUser.getId()).build(), //
+				NotificationSample.builder().userId(anotherUser.getId()).build(), //
+				NotificationSample.builder().userId(anotherUser.getId()).build() //
+			);
+			anotherUserNotifications.forEach(notificationMapper::insert);
+
+			/*
+			 * test
+			 */
+			final var request = getRequest(GET_NOTIFICATIONS_PATH);
+			request.header(HttpHeaders.AUTHORIZATION, credentials);
+			final var response = execute(request, HttpStatus.OK, NotificationsResponse.class);
+
+			/*
+			 * verify
+			 */
+			assertThat(response.getNotifications().size()).isEqualTo(loginUserNotifications.size());
+			assertThat(response.getNotifications()).extracting(NotificationResponse::getId, NotificationResponse::getTitle) //
+				.containsExactlyInAnyOrder( //
+					tuple(loginUserNotifications.get(0).getId(), loginUserNotifications.get(0).getTitle()), //
+					tuple(loginUserNotifications.get(1).getId(), loginUserNotifications.get(1).getTitle()), //
+					tuple(loginUserNotifications.get(2).getId(), loginUserNotifications.get(2).getTitle()) //
+				);
+		}
+
+		@Test
+		void 異_無効な認証ヘッダ() throws Exception {
+			/*
+			 * test & verify
+			 */
+			final var request = getRequest(GET_NOTIFICATIONS_PATH);
+			request.header(HttpHeaders.AUTHORIZATION, "");
+			execute(request, new UnauthorizedException(ErrorCode.INVALID_ACCESS_TOKEN));
+		}
+
+	}
 
 }
