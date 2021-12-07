@@ -82,8 +82,8 @@ public class GiftRestController {
      * @param loginUser   ログインユーザ
      */
     @ApiOperation( //
-        value = "ギフトの受け取り", //
-        notes = "ギフトを受け取る。" //
+        value = "ギフトのおすそわけ", //
+        notes = "ギフトをおすそわけする。" //
     )
     @ApiResponses( //
         value = { //
