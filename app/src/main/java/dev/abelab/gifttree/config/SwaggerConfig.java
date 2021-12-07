@@ -38,7 +38,8 @@ public class SwaggerConfig {
                 new Tag("Auth", "認証"), //
                 new Tag("Health Check", "ヘルスチェック"), //
                 new Tag("User", "ユーザ"), //
-                new Tag("Gift", "ギフト") //
+                new Tag("Gift", "ギフト"), //
+                new Tag("Ranking", "ランキング") //
             );
     }
 
