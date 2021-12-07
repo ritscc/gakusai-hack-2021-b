@@ -50,6 +50,8 @@ public enum ErrorCode {
 
     TOO_SIMPLE_PASSWORD(1403, "exception.bad_request.too_simple_password"),
 
+    USER_HAS_NO_GIFT(1404, "exception.bad_request.user_has_no_gift"),
+
     /**
      * Unauthorized: 1500~1599
      */

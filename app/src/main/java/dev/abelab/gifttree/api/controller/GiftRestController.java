@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import io.swagger.annotations.*;
 import lombok.*;
 import dev.abelab.gifttree.annotation.Authenticated;
+import dev.abelab.gifttree.api.request.GiftShareRequest;
 import dev.abelab.gifttree.api.response.GiftsResponse;
 import dev.abelab.gifttree.db.entity.User;
 import dev.abelab.gifttree.service.GiftService;
@@ -71,6 +72,35 @@ public class GiftRestController {
         @ModelAttribute("LoginUser") final User loginUser //
     ) {
         return this.giftService.getLoginUserGifts(loginUser);
+    }
+
+    /**
+     * ギフトおすそわけAPI
+     *
+     * @param userId      ユーザID
+     * @param requestBody ギフトおすそわけ情報
+     * @param loginUser   ログインユーザ
+     */
+    @ApiOperation( //
+        value = "ギフトの受け取り", //
+        notes = "ギフトを受け取る。" //
+    )
+    @ApiResponses( //
+        value = { //
+                @ApiResponse(code = 200, message = "受け取り成功"), //
+                @ApiResponse(code = 400, message = "ギフトを所持していない"), //
+                @ApiResponse(code = 401, message = "ユーザがログインしていない"), //
+                @ApiResponse(code = 404, message = "ギフト/ユーザが存在しない"), //
+        } //
+    )
+    @PostMapping(value = "/users/{user_id}/gifts")
+    @ResponseStatus(HttpStatus.OK)
+    public void shareGift( //
+        @ApiParam(name = "user_id", required = true, value = "ユーザID") @PathVariable("user_id") final int userId, //
+        @Validated @ApiParam(name = "body", required = true, value = "ギフトおすそわけ情報") @RequestBody final GiftShareRequest requestBody, //
+        @ModelAttribute("LoginUser") final User loginUser //
+    ) {
+        this.giftService.shareGift(userId, requestBody, loginUser);
     }
 
 }

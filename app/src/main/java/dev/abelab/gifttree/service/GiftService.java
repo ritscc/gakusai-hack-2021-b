@@ -9,13 +9,16 @@ import org.modelmapper.ModelMapper;
 import lombok.*;
 import dev.abelab.gifttree.api.response.GiftResponse;
 import dev.abelab.gifttree.api.response.GiftsResponse;
+import dev.abelab.gifttree.api.request.GiftShareRequest;
 import dev.abelab.gifttree.db.entity.User;
 import dev.abelab.gifttree.db.entity.UserGift;
 import dev.abelab.gifttree.enums.UserGiftTypeEnum;
 import dev.abelab.gifttree.repository.GiftRepository;
 import dev.abelab.gifttree.repository.UserGiftRepository;
+import dev.abelab.gifttree.repository.UserRepository;
 import dev.abelab.gifttree.exception.ErrorCode;
 import dev.abelab.gifttree.exception.ConflictException;
+import dev.abelab.gifttree.exception.BadRequestException;
 
 @RequiredArgsConstructor
 @Service
@@ -26,6 +29,8 @@ public class GiftService {
     private final GiftRepository giftRepository;
 
     private final UserGiftRepository userGiftRepository;
+
+    private final UserRepository userRepository;
 
     /**
      * ギフトを獲得
@@ -73,6 +78,48 @@ public class GiftService {
         }).collect(Collectors.toList());
 
         return new GiftsResponse(giftResponses);
+    }
+
+    /**
+     * ギフトおすそわけAPI
+     *
+     * @param userId      ユーザID
+     * @param requestBody ギフトおすそわけリクエスト
+     * @param loginUser   ログインユーザ
+     */
+    @Transactional
+    public void shareGift(final int userId, final GiftShareRequest requestBody, final User loginUser) {
+        // おすそわけするユーザを取得
+        final var user = this.userRepository.selectById(userId);
+        // ギフトを取得
+        final var giftId = requestBody.getGiftId();
+        final var userGift = this.userGiftRepository.selectByPrimaryKey(loginUser.getId(), giftId);
+
+        // ギフト数を減らす
+        if (userGift.getQuantity() == 0) {
+            throw new BadRequestException(ErrorCode.USER_HAS_NO_GIFT);
+        } else if (userGift.getQuantity() == 1) {
+            this.userGiftRepository.delete(loginUser.getId(), giftId);
+        } else {
+            userGift.setQuantity(userGift.getQuantity() - 1);
+            this.userGiftRepository.update(userGift);
+        }
+
+        // おすそわけされるユーザがギフトを獲得
+        if (this.userGiftRepository.existsByPrimaryKey(user.getId(), giftId)) {
+            final var updatedUserGift = this.userGiftRepository.selectByPrimaryKey(user.getId(), giftId);
+            updatedUserGift.setQuantity(updatedUserGift.getQuantity() + 1);
+            this.userGiftRepository.update(updatedUserGift);
+        } else {
+            final var createdUserGift = UserGift.builder() //
+                .userId(user.getId()) //
+                .giftId(giftId) //
+                .quantity(1) //
+                .type(UserGiftTypeEnum.FRIEND.getId()) //
+                .receivedBy(loginUser.getId()) //
+                .build();
+            this.userGiftRepository.insert(createdUserGift);
+        }
     }
 
 }
