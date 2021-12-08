@@ -3,37 +3,38 @@
 }
 
 .success-snack-bar {
-  background-color: #ddffdd;
+  background-color: #c6f6d5;
 }
 
 .success-snack-bar-badge {
-  color: #237f38;
+  color: #38a169;
 }
 
 .info-snack-bar {
-  background-color: #edf8fb;
+  background-color: #bee3f8;
 }
 
 .info-snack-bar-badge {
-  color: #4a6884;
+  color: #3182ce;
 }
 
 .warn-snack-bar {
-  background-color: #fffceb;
+  background-color: #fdeacb;
 }
 
 .warn-snack-bar-badge {
-  color: #594300;
+  color: #dd6b20;
 }
 
 .error-snack-bar {
-  background-color: #fef4f6;
+  background-color: #fdd7d7;
 }
 
 .error-snack-bar-badge {
-  color: #cf4538;
+  color: #e53e3e;
 }
 
 .error-message {
   font-size: 0.9rem;
+  color: #2d3748;
 }
