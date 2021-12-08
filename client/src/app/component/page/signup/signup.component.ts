@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { SignUpRequest } from 'src/app/request/signup.request';
+import imageCompression from 'browser-image-compression';
 
 @Component({
   selector: 'app-signup',
@@ -45,22 +46,21 @@ export class SignupComponent implements OnInit {
     (event.target as HTMLInputElement).value = '';
   }
 
-  onSelectFiles(event: Event): void {
+  async onSelectFiles(event: Event) {
     const files: FileList | null = (event.target as HTMLInputElement).files;
 
-    if (files === null) {
+    if (!files) {
       return;
     }
 
-    Array.from(files).forEach((file) => {
-      var reader = new FileReader();
-      reader.readAsDataURL(file);
+    // 1MB以下に圧縮する
+    const compressOptions = {
+      maxSizeMB: 1,
+    };
+    const compFile = await imageCompression(files[0], compressOptions);
+    const image = await imageCompression.getDataUrlFromFile(compFile);
 
-      reader.onload = () => {
-        const result = reader.result as string;
-        this.requestBody.icon = result.slice(result.indexOf(',') + 1);
-        this.iconSrc = this.sanitizer.bypassSecurityTrustUrl(result);
-      };
-    });
+    this.requestBody.icon = image.slice(image.indexOf(',') + 1);
+    this.iconSrc = this.sanitizer.bypassSecurityTrustUrl(image);
   }
 }
