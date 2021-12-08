@@ -26,6 +26,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
@@ -86,6 +87,7 @@ import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialo
     MatGridListModule,
     MatPaginatorModule,
     MatDialogModule,
+    MatExpansionModule,
     ScrollingModule,
     FlexLayoutModule,
     NgbModalModule,
@@ -121,6 +123,7 @@ import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialo
     MatGridListModule,
     MatPaginatorModule,
     MatDialogModule,
+    MatExpansionModule,
     ScrollingModule,
     FlexLayoutModule,
     NgbModalModule,
