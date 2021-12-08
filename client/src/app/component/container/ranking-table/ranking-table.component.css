@@ -27,6 +27,12 @@
   border-radius: 50%;
 }
 
+.user-icon-no-image {
+  width: 35px;
+  height: 35px;
+  font-size: 35px;
+}
+
 .user-name {
   margin-left: 10px;
   width: 100px;
