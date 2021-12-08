@@ -30,6 +30,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 // pipes
 import { UsernamePipe } from './pipe/username.pipe';
@@ -91,6 +92,7 @@ import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialo
     ScrollingModule,
     FlexLayoutModule,
     NgbModalModule,
+    ZXingScannerModule,
   ],
   exports: [
     CommonModule,
@@ -127,6 +129,7 @@ import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialo
     ScrollingModule,
     FlexLayoutModule,
     NgbModalModule,
+    ZXingScannerModule,
 
     // pipes
     UsernamePipe,

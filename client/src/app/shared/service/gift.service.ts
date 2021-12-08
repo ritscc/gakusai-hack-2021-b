@@ -16,4 +16,8 @@ export class GiftService {
       .get<GiftsModel>(`${environment.API_BASE_URL}/api/users/me/gifts`)
       .pipe(map((response) => response.gifts));
   }
+
+  obtainGift(giftId: number): Observable<void> {
+    return this.http.post<void>(`${environment.API_BASE_URL}/api/gifts/${giftId}/obtain`, null);
+  }
 }
