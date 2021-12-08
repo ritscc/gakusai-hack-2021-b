@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-control-panel',
@@ -7,23 +6,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./control-panel.component.css'],
 })
 export class ControlPanelComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit(): void {}
-
-  onClickGiftButton() {
-    this.router.navigate(['/gifts']);
-  }
-
-  onClickRankingButton() {
-    this.router.navigate(['/ranking']);
-  }
-
-  onClickNotificationsButton() {
-    this.router.navigate(['/notifications']);
-  }
-
-  onClickProfileButton() {
-    this.router.navigate(['/profile']);
-  }
 }

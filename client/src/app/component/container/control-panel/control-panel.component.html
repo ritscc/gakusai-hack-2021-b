@@ -4,25 +4,27 @@
   fxLayoutAlign="center"
 >
   <div class="buttons-container" fxLayout="row" fxLayoutAlign="space-between">
-    <div
-      class="control-panel-button"
+    <a
+      class="control-panel-button project-fg-black1"
       fxLayout="column"
       fxLayoutAlign="start center"
-      (click)="onClickGiftButton()"
+      [routerLink]="'/gifts'"
+      [routerLinkActive]="'project-fg-blue1'"
     >
       <mat-icon>redeem</mat-icon>
       <span>ギフト</span>
-    </div>
+    </a>
 
-    <div
-      class="control-panel-button"
+    <a
+      class="control-panel-button project-fg-black1"
       fxLayout="column"
       fxLayoutAlign="start center"
-      (click)="onClickRankingButton()"
+      [routerLink]="'/ranking'"
+      [routerLinkActive]="'project-fg-blue1'"
     >
       <mat-icon>emoji_events</mat-icon>
       <span>ランキング</span>
-    </div>
+    </a>
 
     <button
       mat-button
@@ -31,25 +33,27 @@
       fxLayoutAlign="start center"
     ></button>
 
-    <div
-      class="control-panel-button"
+    <a
+      class="control-panel-button project-fg-black1"
       fxLayout="column"
       fxLayoutAlign="start center"
-			(click)="onClickNotificationsButton()"
+      [routerLink]="'/notifications'"
+      [routerLinkActive]="'project-fg-blue1'"
     >
       <mat-icon>notifications</mat-icon>
       <span>通知</span>
-    </div>
+    </a>
 
-    <div
-      class="control-panel-button"
+    <a
+      class="control-panel-button project-fg-black1"
       fxLayout="column"
       fxLayoutAlign="start center"
-			(click)="onClickProfileButton()"
+      [routerLink]="'/profile'"
+      [routerLinkActive]="'project-fg-blue1'"
     >
       <mat-icon>settings</mat-icon>
       <span>設定</span>
-    </div>
+    </a>
   </div>
 
   <div
