@@ -1,0 +1,48 @@
+<div fxLayout="column" fxLayoutAlign="start center" style="margin-top: 30px">
+  <div *ngIf="loginUser" fxLayout="row" fxLayoutAlign="start center" class="gift-message-container">
+    <img class="palm-tree-logo" src="assets/palm-tree-logo.svg" />
+    <span class="gift-message"
+      >{{ loginUser.name }}さんに<br />{{ gifts.length }}件のギフトが届いています！</span
+    >
+  </div>
+
+  <mat-card *ngFor="let gift of gifts" class="gift-container">
+    <mat-content fxLayout="row" fxLayoutAlign="space-between center" class="project-fg-black1">
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <div *ngIf="loginUser" style="padding-right: 10px">
+          <mat-icon *ngIf="!loginUser.iconUrl" class="user-icon-no-image"
+            >supervised_user_circle</mat-icon
+          >
+          <img *ngIf="loginUser.iconUrl" class="user-icon" [src]="loginUser.iconUrl" />
+        </div>
+
+        <div>
+          <span class="gift-title">{{ gift.name }}</span>
+          <br />
+          <span class="gift-quantity">残り{{ gift.quantity }}枚</span>
+        </div>
+      </div>
+
+      <div style="white-space: nowrap" fxLayout="row">
+        <button mat-icon-button>
+          <a
+            class="project-fg-black1"
+            [href]="gift.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            fxLayoutAlign="center center"
+          >
+            <mat-icon>play_circle_filled</mat-icon>
+          </a>
+        </button>
+        <button mat-icon-button>
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </mat-content>
+  </mat-card>
+
+  <section *ngIf="gifts.length === 0">
+    <span>ギフトはありません</span>
+  </section>
+</div>

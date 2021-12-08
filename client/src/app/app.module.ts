@@ -18,6 +18,7 @@ import { ProfileComponent } from './component/page/profile/profile.component';
 import { SignupComponent } from './component/page/signup/signup.component';
 import { LoginComponent } from './component/page/login/login.component';
 import { NotificationsComponent } from './component/page/notifications/notifications.component';
+import { GiftsComponent } from './component/page/gifts/gifts.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { NotificationsComponent } from './component/page/notifications/notificat
     SignupComponent,
     LoginComponent,
     NotificationsComponent,
+    GiftsComponent,
   ],
   imports: [SharedModule, BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],

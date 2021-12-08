@@ -1,0 +1,42 @@
+.gift-container {
+  width: 80%;
+  margin-top: 15px;
+}
+
+.palm-tree-logo {
+  height: 38px;
+}
+
+.gift-quantity {
+  font-size: 0.8rem;
+}
+
+.gift-title {
+  font-size: 1rem;
+}
+
+.gift-message-container {
+  width: 80%;
+}
+
+.gift-message {
+  margin-left: 20px;
+}
+
+a {
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.user-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.user-icon-no-image {
+  width: 35px;
+  height: 35px;
+  font-size: 35px;
+}
