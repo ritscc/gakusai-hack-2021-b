@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { GiftService } from 'src/app/shared/service/gift.service';
 import { UserService } from 'src/app/shared/service/user.service';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { GiftModel } from 'src/app/model/gift.model';
 import { UserModel } from 'src/app/model/user.model';
+import { ShareGiftComponent } from 'src/app/component/container/share-gift/share-gift.component';
 
 @Component({
   selector: 'app-gifts',
@@ -15,6 +17,7 @@ export class GiftsComponent implements OnInit {
   gifts: GiftModel[] = [];
 
   constructor(
+    private matDialog: MatDialog,
     private giftService: GiftService,
     private userService: UserService,
     private alertService: AlertService
@@ -45,5 +48,13 @@ export class GiftsComponent implements OnInit {
         this.alertService.openSnackBar(error, 'ERROR');
       }
     );
+  }
+
+  onClickSendButton(giftId: number) {
+    this.matDialog.open(ShareGiftComponent, {
+      data: {
+        giftId: giftId,
+      },
+    });
   }
 }

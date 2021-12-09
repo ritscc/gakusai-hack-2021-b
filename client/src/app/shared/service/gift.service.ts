@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { GiftModel, GiftsModel } from 'src/app/model/gift.model';
+import { GiftShareRequest } from 'src/app/request/gift-share.request';
 
 @Injectable({
   providedIn: 'root',
@@ -19,5 +20,12 @@ export class GiftService {
 
   obtainGift(giftId: number): Observable<void> {
     return this.http.post<void>(`${environment.API_BASE_URL}/api/gifts/${giftId}/obtain`, null);
+  }
+
+  shareGift(userId: number, requestBody: GiftShareRequest): Observable<void> {
+    return this.http.post<void>(
+      `${environment.API_BASE_URL}/api/users/${userId}/gifts`,
+      requestBody
+    );
   }
 }
