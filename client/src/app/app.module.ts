@@ -20,6 +20,7 @@ import { LoginComponent } from './component/page/login/login.component';
 import { NotificationsComponent } from './component/page/notifications/notifications.component';
 import { GiftsComponent } from './component/page/gifts/gifts.component';
 import { QrLoaderDialogComponent } from './component/container/qr-loader-dialog/qr-loader-dialog.component';
+import { ShareGiftComponent } from './component/container/share-gift/share-gift.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { QrLoaderDialogComponent } from './component/container/qr-loader-dialog/
     NotificationsComponent,
     GiftsComponent,
     QrLoaderDialogComponent,
+    ShareGiftComponent,
   ],
   imports: [SharedModule, BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],

@@ -1,0 +1,20 @@
+<mat-dialog-content>
+  <div *ngIf="users" fxLayout="column" fxLayoutAlign="start center">
+    <section *ngFor="let user of users" style="width: 100%">
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon *ngIf="!user.iconUrl" class="user-icon-no-image">supervised_user_circle</mat-icon>
+        <img *ngIf="user.iconUrl" class="user-icon" [src]="user.iconUrl" />
+        <span class="user-name">{{ user.name }}</span>
+
+        <button mat-icon-button (click)="onClickUser(user.id)">
+          <mat-icon *ngIf="sharedUserId !== user.id">radio_button_unchecked</mat-icon>
+          <mat-icon *ngIf="sharedUserId === user.id">radio_button_checked</mat-icon>
+        </button>
+      </div>
+    </section>
+
+    <button mat-flat-button class="submit-button project-bg-purple1" (click)="onClickShareButton()">
+      <span>送信</span>
+    </button>
+  </div>
+</mat-dialog-content>
