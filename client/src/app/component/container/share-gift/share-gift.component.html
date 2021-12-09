@@ -13,7 +13,12 @@
       </div>
     </section>
 
-    <button mat-flat-button class="submit-button project-bg-purple1" (click)="onClickShareButton()">
+    <button
+      mat-flat-button
+      class="submit-button project-bg-purple1"
+      (click)="onClickShareButton()"
+      [disabled]="!sharedUserId"
+    >
       <span>送信</span>
     </button>
   </div>
