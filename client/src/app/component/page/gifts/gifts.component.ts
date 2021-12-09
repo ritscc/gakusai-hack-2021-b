@@ -33,6 +33,10 @@ export class GiftsComponent implements OnInit {
       }
     );
 
+    this.getLoginUserGifts();
+  }
+
+  getLoginUserGifts() {
     this.giftService.getLoginUserGifts().subscribe(
       (gifts) => {
         this.gifts = gifts;
@@ -51,10 +55,13 @@ export class GiftsComponent implements OnInit {
   }
 
   onClickSendButton(giftId: number) {
-    this.matDialog.open(ShareGiftComponent, {
-      data: {
-        giftId: giftId,
-      },
-    });
+    this.matDialog
+      .open(ShareGiftComponent, {
+        data: {
+          giftId: giftId,
+        },
+      })
+      .afterClosed()
+      .subscribe((_) => this.getLoginUserGifts());
   }
 }
