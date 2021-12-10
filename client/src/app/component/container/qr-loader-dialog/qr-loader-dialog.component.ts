@@ -21,21 +21,20 @@ export class QrLoaderDialogComponent implements OnInit {
   ngOnInit(): void {}
 
   scanSuccessHandler(content: string) {
+    this.matDialogRef.close('OK');
+
     const giftId = Number(content);
     if (isNaN(giftId)) {
-      this.matDialogRef.close('ERROR');
       this.alertService.openSnackBar('そのQRコードは読み取れません', 'ERROR');
       return;
     }
 
     this.giftService.obtainGift(giftId).subscribe(
       (_) => {
-        this.matDialogRef.close('OK');
         this.alertService.openSnackBar('ギフトを獲得しました', 'SUCCESS');
         this.router.navigate(['/gifts']);
       },
       (error) => {
-        this.matDialogRef.close('ERROR');
         this.alertService.openSnackBar(error, 'ERROR');
       }
     );
