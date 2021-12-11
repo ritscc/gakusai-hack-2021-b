@@ -13,21 +13,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.modelmapper.ModelMapper;
 
-import dev.abelab.gifttree.api.response.UserRankResponse;
 import dev.abelab.gifttree.api.response.RankingResponse;
 import dev.abelab.gifttree.db.mapper.UserMapper;
 import dev.abelab.gifttree.db.mapper.GiftMapper;
 import dev.abelab.gifttree.db.mapper.UserGiftMapper;
 import dev.abelab.gifttree.db.mapper.NotificationMapper;
-import dev.abelab.gifttree.db.entity.UserGift;
-import dev.abelab.gifttree.enums.UserGiftTypeEnum;
 import dev.abelab.gifttree.helper.sample.UserSample;
-import dev.abelab.gifttree.helper.sample.GiftSample;
-import dev.abelab.gifttree.helper.sample.UserGiftSample;
 import dev.abelab.gifttree.helper.sample.NotificationSample;
 import dev.abelab.gifttree.exception.ErrorCode;
-import dev.abelab.gifttree.exception.ConflictException;
-import dev.abelab.gifttree.exception.NotFoundException;
 import dev.abelab.gifttree.exception.UnauthorizedException;
 
 /**
@@ -106,7 +99,6 @@ public class RankingRestController_IT extends AbstractRestController_IT {
 			request.header(HttpHeaders.AUTHORIZATION, credentials);
 			final var response = execute(request, HttpStatus.OK, RankingResponse.class);
 
-			System.out.println(response);
 			/*
 			 * verify
 			 */

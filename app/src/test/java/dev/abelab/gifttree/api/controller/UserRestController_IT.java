@@ -80,8 +80,8 @@ public class UserRestController_IT extends AbstractRestController_IT {
 			 * verify
 			 */
 			assertThat(response) //
-				.extracting(UserResponse::getId, UserResponse::getEmail, UserResponse::getName) //
-				.containsExactly(loginUser.getId(), loginUser.getEmail(), loginUser.getName());
+				.extracting(UserResponse::getId, UserResponse::getName) //
+				.containsExactly(loginUser.getId(), loginUser.getName());
 			assertThat(response.getIconUrl()).isNotNull();
 		}
 

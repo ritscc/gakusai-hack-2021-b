@@ -17,11 +17,6 @@ public class UserResponse {
     Integer id;
 
     /**
-     * メールアドレス
-     */
-    String email;
-
-    /**
      * ユーザ名
      */
     String name;
